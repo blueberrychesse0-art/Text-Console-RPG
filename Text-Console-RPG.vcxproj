@@ -144,10 +144,6 @@
     </ClCompile>
     <ClCompile Include="Entity\Player\Character.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="player.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="player.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity\Entity.h" />
