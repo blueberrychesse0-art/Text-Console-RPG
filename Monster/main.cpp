@@ -9,33 +9,6 @@
 
 using namespace std;
 
-void createMonsters(int playerLevel)
-{
-    Goblin goblin(playerLevel);
-    Orc orc(playerLevel);
-    Troll troll(playerLevel);
-    Slime slime(playerLevel);
-
-    cout << "\n===== 몬스터 생성 =====\n";
-    cout << "현재 플레이어 레벨: " << playerLevel << "\n\n";
-
-    cout << goblin.getName()
-        << " | 체력: " << goblin.getHealth()
-        << " | 공격력: " << goblin.getAttack() << endl;
-
-    cout << orc.getName()
-        << " | 체력: " << orc.getHealth()
-        << " | 공격력: " << orc.getAttack() << endl;
-
-    cout << troll.getName()
-        << " | 체력: " << troll.getHealth()
-        << " | 공격력: " << troll.getAttack() << endl;
-
-    cout << slime.getName()
-        << " | 체력: " << slime.getHealth()
-        << " | 공격력: " << slime.getAttack() << endl;
-}
-
 int main()
 {
     srand((unsigned int)time(NULL));
@@ -43,21 +16,51 @@ int main()
     int playerLevel = 1;
     char input;
 
-    createMonsters(playerLevel);
+    Goblin goblin(playerLevel);
+    Orc orc(playerLevel);
+    Troll troll(playerLevel);
+    Slime slime(playerLevel);
+
 
     while (true)
     {
+        cout << "\n===== 몬스터 상태 =====\n";
+        cout << "현재 플레이어 레벨: " << playerLevel << "\n\n";
+
+        cout << goblin.GetName() << " | 체력: " << goblin.GetHealth()
+            << " | 공격력: " << goblin.GetAttack() << endl;
+
+        cout << orc.GetName() << " | 체력: " << orc.GetHealth()
+            << " | 공격력: " << orc.GetAttack() << endl;
+
+        cout << troll.GetName() << " | 체력: " << troll.GetHealth()
+            << " | 공격력: " << troll.GetAttack() << endl;
+
+        cout << slime.GetName() << " | 체력: " << slime.GetHealth()
+            << " | 공격력: " << slime.GetAttack() << endl;
+
         cout << "\n========================\n";
-        cout << "R : 몬스터 새로고침\n";
+        cout << "A : 몬스터 공격\n";
+        cout << "R : 몬스터 새로 고침\n";
         cout << "E : 플레이어 레벨 변경\n";
         cout << "Q : 종료\n";
         cout << "입력 : ";
 
         cin >> input;
 
-        if (input == 'r' || input == 'R')
+        if (input == 'a' || input == 'A')
         {
-            createMonsters(playerLevel);
+            goblin.Attack();
+            orc.Attack();
+            troll.Attack();
+            slime.Attack();
+        }
+        else if (input == 'r' || input == 'R')
+        {
+            goblin = Goblin(playerLevel);
+            orc = Orc(playerLevel);
+            troll = Troll(playerLevel);
+            slime = Slime(playerLevel);
         }
         else if (input == 'e' || input == 'E')
         {
@@ -65,15 +68,14 @@ int main()
             cin >> playerLevel;
 
             if (playerLevel < 1)
-            {
                 playerLevel = 1;
-            }
 
-            cout << "\n플레이어 레벨이 "
-                << playerLevel
-                << "(으)로 변경되었습니다.\n";
+            cout << "\n플레이어 레벨이 " << playerLevel << "(으)로 변경되었습니다.\n";
 
-            createMonsters(playerLevel);
+            goblin = Goblin(playerLevel);
+            orc = Orc(playerLevel);
+            troll = Troll(playerLevel);
+            slime = Slime(playerLevel);
         }
         else if (input == 'q' || input == 'Q')
         {

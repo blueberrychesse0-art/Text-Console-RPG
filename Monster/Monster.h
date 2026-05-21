@@ -1,25 +1,17 @@
 #pragma once
 
 
+#include "Entity.h"
 #include <string>
 
-using namespace std;
 
-class Monster
+class Monster : public Entity
 {
-protected:
-    string name;
-    int health;
-    int attack;
-
 public:
-    Monster(string name, int health, int attack);
-    virtual ~Monster() {}
+    Monster(std::string name, int health, int attack);
 
-    string getName() const;
-    int getHealth() const;
-    int getAttack() const;
+    void Attack() override;
+    void TakeDamage(int damage) override;
 
-    void takeDamage(int damage);
-    bool isDead() const;
+    bool IsDead() const;
 };

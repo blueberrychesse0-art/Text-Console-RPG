@@ -1,31 +1,23 @@
 ﻿
-
 #include "Monster.h"
+#include <iostream>
 
 
-Monster::Monster(string name, int health, int attack)
+using namespace std;
+
+
+Monster::Monster(std::string name, int health, int attack)
+    : Entity(name, health, attack)
 {
-    this->name = name;
-    this->health = health;
-    this->attack = attack;
+
 }
 
-string Monster::getName() const
+void Monster::Attack()
 {
-    return name;
+    cout << name << "이(가) 공격합니다! 공격력: " << attack << endl;
 }
 
-int Monster::getHealth() const
-{
-    return health;
-}
-
-int Monster::getAttack() const
-{
-    return attack;
-}
-
-void Monster::takeDamage(int damage)
+void Monster::TakeDamage(int damage)
 {
     health -= damage;
 
@@ -33,9 +25,12 @@ void Monster::takeDamage(int damage)
     {
         health = 0;
     }
+
+    cout << name << "이(가) " << damage << " 데미지를 받았습니다. 현재 체력: "
+        << health << endl;
 }
 
-bool Monster::isDead() const
+bool Monster::IsDead() const
 {
     return health <= 0;
 }
