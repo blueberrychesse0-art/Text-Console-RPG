@@ -1,0 +1,16 @@
+# Visual Studio 임시 및 빌드 결과물 제외
+.vs/
+Debug/
+Release/
+x64/
+x86/
+
+# 개인 유저 설정 파일 제외
+*.vcxproj.user
+*.suo
+*.user
+
+# 빌드 로그 및 캐시
+*.log
+*.tlog
+*.lastbuildstate
