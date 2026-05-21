@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5873432c-2118-432c-8d79-499151bea31d}</ProjectGuid>
+    <ProjectGuid>{3d84f91f-4998-41ef-a764-d9a392db79aa}</ProjectGuid>
     <RootNamespace>TextConsoleRPG</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
