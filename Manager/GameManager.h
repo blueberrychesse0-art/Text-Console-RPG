@@ -26,6 +26,7 @@ public:
 	static GameManager* getInstance();
 
 	void Init();
+	void Release();
 	void CreatePlayer();
 	void Main();
 	void Battle();
