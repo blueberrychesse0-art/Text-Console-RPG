@@ -105,7 +105,7 @@ void GameManager::Battle()
 			int money = dist(engine);
 			player->AddGold(money);			// 골드 추가
 			std::cout << "골드 " << money << " 획득!" << std::endl;
-
+			
 			player->AddExperience(50);		// 경험치 추가
 
 			std::uniform_int_distribution<int> percent(0 , 10);

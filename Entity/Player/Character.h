@@ -26,6 +26,5 @@ public:
 
 	void AddGold(int amount);
 	void UseGold(int amount);
-
 };
 
