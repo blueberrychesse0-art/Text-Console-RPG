@@ -1,5 +1,5 @@
 #include "GameManager.h"
-
+//
 GameManager::~GameManager()
 {
 	if (instance != nullptr)
