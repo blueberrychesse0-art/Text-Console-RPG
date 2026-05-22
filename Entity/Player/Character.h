@@ -1,5 +1,5 @@
 #pragma once
-#include "Entity.h"
+#include "../Entity.h"
 #include <vector>
 
 struct Item;
@@ -12,7 +12,7 @@ private:
 	int gold;
 	std::vector<Item*> inventory;
 public:
-	Character(std::string n);
+	Character(std::string n, int health, int attack);
 	void Attack() override;
 	void TakeDamage(int damage) override;
 	void DisplayStatus()const;
