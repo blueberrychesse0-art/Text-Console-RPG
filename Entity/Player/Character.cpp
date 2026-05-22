@@ -63,6 +63,14 @@ void Character::UseGold(int amount)
 {
 	gold -= amount;
 }
+int Character::GetLevel()const
+{
+	return level;
+}
+int Character::GetExperience()const
+{
+	return experience;
+}
 
 //int main() {
 //	string temp;
