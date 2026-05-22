@@ -17,9 +17,9 @@ public:
 
 	virtual ~Item() {}
 
-	std::string getName() const { return name; }
-
 	virtual void use(Character* character) = 0;
+	//아이템 개수 세기 위한 getter
+	int getCount() const { return count; }
 
 };
 
