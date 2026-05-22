@@ -3,9 +3,8 @@
 
 using namespace std;
 
-Character::Character(std::string n, int health, int attack):Entity(n, health, attack)
+Character::Character(std::string n):Entity(n, 200, 30)
 {
-	
 	level = 1;
 	experience = 0;
 	gold = 0;
