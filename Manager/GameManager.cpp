@@ -20,8 +20,8 @@ GameManager* GameManager::getInstance()
 
 void GameManager::Init()
 {
-	std::random_device rd;		// 랜덤에 사용할것들 초기화
-	engine.seed(rd());			//
+	std::random_device rd;
+	engine.seed(rd());
 }
 
 void GameManager::CreatePlayer()
@@ -30,7 +30,7 @@ void GameManager::CreatePlayer()
 	std::cout << "플레이어 이름을 입력해 주세요: ";
 	std::cin >> name;
 
-	player = new Character(name, 200 , 30);
+	player = new Character(name);
 	Battle();
 }
 
@@ -83,8 +83,21 @@ void GameManager::Battle()
 		{
 			std::cout << "전투 승리! " << std::endl;
 
-			// TODO : 아이템획득, 경험치 획득, 골드 획득 추가해야함
+			static std::random_device rd;					// 랜덤 함수
+			static std::mt19937 gen(rd());
+			std::uniform_int_distribution<int> dist(10 , 21);		// 10 <= x < 21 
 
+			int money = dist(gen);
+			player->AddGold(money);			// 골드 추가
+			std::cout << "골드 " << money << " 획득!" << std::endl;
+
+			player->AddExperience(50);		// 경험치 추가
+
+			std::uniform_int_distribution<int> percent(0 , 10);
+			if (percent(gen) < 3)				// 아이템 추가
+			{
+				//TODO: 플레이어 아이템추가 함수
+			}
 
 			for (Monster* m : monsters)
 			{
@@ -121,16 +134,16 @@ Monster* GameManager::SpawnRandomMonsters()
 	switch (roll)
 	{
 	case 0:			// 슬라임
-		newMonster = new Slime(player->GetPlayerLv()); // 플레이어 레벨 불러오는 함수 확인 필요
+		newMonster = new Slime(player->GetLevel());
 		break;
 	case 1:			// 고블린
-		newMonster = new Goblin(player->GetPlayerLv());
+		newMonster = new Goblin(player->GetLevel( ));
 		break;
 	case 2:			// 오크
-		newMonster = new Orc(player->GetPlayerLv());
+		newMonster = new Orc(player->GetLevel( ));
 		break;
 	case 3:			// 트롤
-		newMonster = new Troll(player->GetPlayerLv());
+		newMonster = new Troll(player->GetLevel( ));
 		break;
 	}
 
