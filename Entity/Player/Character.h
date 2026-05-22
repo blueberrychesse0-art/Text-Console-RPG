@@ -21,6 +21,8 @@ public:
 	
 	
 	int GetGold()const;
+	int GetLevel()const;
+	int GetExperience()const;
 
 	void AddGold(int amount);
 	void UseGold(int amount);
