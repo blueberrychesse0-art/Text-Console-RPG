@@ -13,15 +13,77 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Entity">
+      <UniqueIdentifier>{74ebe483-750e-4bdc-92c3-3a5e9b472e94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Player">
+      <UniqueIdentifier>{e9681fb2-a811-49d5-a2e0-142da8dc2b4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Monster">
+      <UniqueIdentifier>{d10ddfa4-8cdd-4a07-91bd-b06843bec037}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity\Player\Character.cpp">
+      <Filter>Entity\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Entity.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Monster\Goblin.cpp">
+      <Filter>Entity\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Monster\main.cpp">
+      <Filter>Entity\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Monster\Monster.cpp">
+      <Filter>Entity\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Monster\Orc.cpp">
+      <Filter>Entity\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Monster\Slime.cpp">
+      <Filter>Entity\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Monster\Troll.cpp">
+      <Filter>Entity\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LKJ.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Entity\Player\Character.h">
+      <Filter>Entity\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Entity\Entity.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Monster\Goblin.h">
+      <Filter>Entity\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Monster\Monster.h">
+      <Filter>Entity\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Monster\Orc.h">
+      <Filter>Entity\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Monster\Slime.h">
+      <Filter>Entity\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Monster\Troll.h">
+      <Filter>Entity\Monster</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Entity\Monster\Monster.slnx">
+      <Filter>Entity\Monster</Filter>
+    </None>
+    <None Include="Entity\Monster\Monster.vcxproj">
+      <Filter>Entity\Monster</Filter>
+    </None>
+    <None Include="Entity\Monster\Monster.vcxproj.filters">
+      <Filter>Entity\Monster</Filter>
+    </None>
   </ItemGroup>
 </Project>
