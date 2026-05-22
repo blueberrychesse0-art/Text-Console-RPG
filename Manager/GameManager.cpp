@@ -2,10 +2,17 @@
 //
 GameManager::~GameManager()
 {
-	if (instance != nullptr)
+	if ( player != nullptr )
 	{
-		delete instance;
+		delete player;
+		player = nullptr;
 	}
+
+	for ( Monster* m : monsters )
+	{
+		if ( m != nullptr ) delete m;
+	}
+	monsters.clear( );
 }
   
 GameManager* GameManager::getInstance()
@@ -22,6 +29,16 @@ void GameManager::Init()
 {
 	std::random_device rd;
 	engine.seed(rd());
+	CreatePlayer();
+}
+
+void GameManager::Release( )
+{
+	if ( instance != nullptr )
+	{
+		delete instance;
+		instance = nullptr;
+	}
 }
 
 void GameManager::CreatePlayer()
@@ -40,11 +57,11 @@ void GameManager::Main()
 
 	while (1)
 	{
-		std::cout << "======== Text-Console RPG ========" << std::endl;
+		std::cout << "\n========= Text-Console RPG =========" << std::endl;
 		std::cout << "1. 던전 입장" << std::endl;
 		std::cout << "0. 게임 종료" << std::endl;
-		std::cout << "==================================" << std::endl;
-		std::cout << "선택 : ";
+		player->DisplayStatus();
+		std::cout << "\n선택 : ";
 		std::cin >> select;
 
 		switch (select)
@@ -55,7 +72,7 @@ void GameManager::Main()
 		case 2:
 			break;
 		case 0:
-			exit(0);
+			return;
 			break;
 		default:
 			break;
@@ -67,34 +84,32 @@ void GameManager::Main()
 void GameManager::Battle()
 {
 	monsters.push_back(SpawnRandomMonsters());
+	std::cout <<"\n" << monsters[0]->GetName() << " 이 나타났다! " << std::endl;
 
-	
-	while (player->GetHealth() <= 0 || monsters.empty())
+	while (player->GetHealth() > 0 && !monsters.empty())
 	{
 		int preHealth = monsters[0]->GetHealth();		// 공격 받기 전 체력
 
 		// 플레이어의 공격
 		player->Attack();
 		monsters[0]->TakeDamage(player->GetAttack());
-		std::cout << monsters[0]->GetName( ) << "에게 " << player->GetAttack( ) << " 데미지!" << std::endl;
-		std::cout << monsters[0]->GetName( ) << "체력 " << preHealth << " -> " << monsters[0]->GetHealth() << std::endl;
+		//std::cout << monsters[0]->GetName( ) << "에게 " << player->GetAttack( ) << " 데미지!" << std::endl;
+		//std::cout << monsters[0]->GetName( ) << "체력 " << preHealth << " -> " << monsters[0]->GetHealth() << std::endl;
 
 		if (monsters[0]->GetHealth( ) <= 0)			// 몬스터가 죽었을 시
 		{
-			std::cout << "전투 승리! " << std::endl;
+			std::cout << "\n전투 승리! " << std::endl;
 
-			static std::random_device rd;					// 랜덤 함수
-			static std::mt19937 gen(rd());
 			std::uniform_int_distribution<int> dist(10 , 21);		// 10 <= x < 21 
 
-			int money = dist(gen);
+			int money = dist(engine);
 			player->AddGold(money);			// 골드 추가
 			std::cout << "골드 " << money << " 획득!" << std::endl;
 
 			player->AddExperience(50);		// 경험치 추가
 
 			std::uniform_int_distribution<int> percent(0 , 10);
-			if (percent(gen) < 3)				// 아이템 추가
+			if (percent(engine) < 3)				// 아이템 추가
 			{
 				//TODO: 플레이어 아이템추가 함수
 			}
@@ -107,12 +122,13 @@ void GameManager::Battle()
 			break;
 		}
 
+		std::cout << std::endl;
 		// 몬스터의 공격
 		preHealth = player->GetHealth( );
 		monsters[0]->Attack( );
-		player->TakeDamage(monsters[0]->GetAttack( ));
-		std::cout << player->GetName( ) << "에게 " << monsters[0]->GetAttack() << " 데미지!" << std::endl;
-		std::cout << player->GetName( ) << "체력 " << preHealth << " -> " << player->GetHealth( ) << std::endl;
+		player->TakeDamage(monsters[0]->GetAttack());
+		//std::cout << player->GetName( ) << "에게 " << monsters[0]->GetAttack() << " 데미지!" << std::endl;
+		//std::cout << player->GetName( ) << "체력 " << preHealth << " -> " << player->GetHealth( ) << std::endl;
 
 		if (player->GetHealth( ) <= 0)			// 플레이어가가 죽었을 시
 		{
