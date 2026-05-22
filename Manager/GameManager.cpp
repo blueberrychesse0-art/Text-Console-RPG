@@ -56,7 +56,7 @@ void GameManager::Main()
 		case 2:
 			break;
 		case 0:
-			system.eixt(0);
+			exit(0);
 			break;
 		default:
 			break;
