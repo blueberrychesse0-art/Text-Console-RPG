@@ -1,5 +1,5 @@
 #include "Item.h"
-#include "Character.h"
+#include "../Character.h"
 #include <iostream>
 
 void HealthPotion::use(Character* character) {
@@ -11,7 +11,7 @@ void HealthPotion::use(Character* character) {
 
 	//사용시 개수를 감소하게 했습니다.
 	count--;
-	
+
 	character->health += healthRestore;
 	if (character->health > character->maxHealth) {
 		character->health = character->maxHealth;
@@ -24,7 +24,7 @@ void AttackBoost::use(Character* character) {
 	if (count <= 0) return;
 
 	count--;
-	
+
 	character->attack += attackIncrease;
 
 	std::cout << "공격력 증가 (현재 : " << character->attack << ")" << std::endl;

@@ -3,9 +3,8 @@
 
 using namespace std;
 
-Character::Character(std::string n, int health, int attack):Entity(n, health, attack)
+Character::Character(std::string n):Entity(n, 200, 30)
 {
-	
 	level = 1;
 	experience = 0;
 	gold = 0;
@@ -26,6 +25,20 @@ void Character::DisplayStatus() const
 	cout << "체력 : " << maxHealth << "/" << health << " | 공격력 : " << attack << endl
 		<< "현재 레벨 : " << level << " | 경험치 : " << experience << "/100" << endl;
 }
+
+int Character::GetGold()const
+{
+	return gold;
+}
+void Character::AddGold(int amount)
+{
+	gold += amount;
+}
+void Character::UseGold(int amount)
+{
+	gold -= amount;
+}
+
 //int main() {
 //	string temp;
 //	cout << "이름을 입력하세요 : ";
