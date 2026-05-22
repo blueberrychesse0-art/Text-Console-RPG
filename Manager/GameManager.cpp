@@ -12,7 +12,7 @@ GameManager::~GameManager()
 
 GameManager* GameManager::getInstance()
 {
-	if (instance != nullptr)
+	if (instance == nullptr)
 	{
 		instance = new GameManager();
 	}
@@ -69,4 +69,8 @@ void GameManager::Battle()
 
 }
 
+void GameManager::SpawnRandomMonsters()
+{
+
+}
 

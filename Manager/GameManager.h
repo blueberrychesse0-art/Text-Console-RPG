@@ -25,5 +25,6 @@ public:
 	void CreatePlayer();
 	void Main();
 	void Battle();
+	Monster* SpawnRandomMonsters();
 };
 
