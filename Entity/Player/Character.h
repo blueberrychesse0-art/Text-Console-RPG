@@ -17,6 +17,7 @@ public:
 	void Attack() override;
 	void TakeDamage(int damage) override;
 	void DisplayStatus()const;
+	void AddExperience(int amount);
 	
 	
 	int GetGold()const;
