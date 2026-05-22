@@ -103,7 +103,7 @@ void GameManager::Battle()
 		if (player->GetHealth( ) <= 0)			// 플레이어가가 죽었을 시
 		{
 			std::cout << "전투 패배! " << std::endl;
-			exit(0) // 일단 임시로 패배시 게임종료
+			exit(0); // 일단 임시로 패배시 게임종료
 			break;
 		}
 	}
