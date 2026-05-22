@@ -10,6 +10,9 @@ protected:
 	int health;
 	int maxHealth;
 	int attack;
+
+public:
+	Entity(std::string name, int health, int attack);
 public:
 	virtual ~Entity() {}
 
