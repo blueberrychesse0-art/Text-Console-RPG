@@ -102,6 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/source-charset:utf-8 /execution-charset:ks_c_5601-1987 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,9 +128,6 @@
     <ClCompile Include="Entity\Monster\Goblin.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Entity\Monster\main.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Entity\Monster\Monster.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -144,6 +142,7 @@
     </ClCompile>
     <ClCompile Include="Entity\Player\Character.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Manager\GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity\Entity.h" />
@@ -163,6 +162,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Entity\Player\Character.h" />
+    <ClInclude Include="Manager\GameManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entity\Monster\Monster.slnx">

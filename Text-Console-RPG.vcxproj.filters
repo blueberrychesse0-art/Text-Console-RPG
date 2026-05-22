@@ -36,9 +36,6 @@
     <ClCompile Include="Entity\Monster\Goblin.cpp">
       <Filter>Entity\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\Monster\main.cpp">
-      <Filter>Entity\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="Entity\Monster\Monster.cpp">
       <Filter>Entity\Monster</Filter>
     </ClCompile>
@@ -50,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="Entity\Monster\Troll.cpp">
       <Filter>Entity\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\GameManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="Entity\Monster\Troll.h">
       <Filter>Entity\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\GameManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
