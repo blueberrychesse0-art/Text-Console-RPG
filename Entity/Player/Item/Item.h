@@ -20,6 +20,7 @@ public:
 	std::string getName() const { return name; }
 
 	virtual void use(Character* character) = 0;
+
 };
 
 //체력 회복 초기 count 5
