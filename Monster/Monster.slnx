@@ -1,7 +1,0 @@
-<Solution>
-  <Configurations>
-    <Platform Name="x64" />
-    <Platform Name="x86" />
-  </Configurations>
-  <Project Path="Monster.vcxproj" Id="0c534843-5ffe-42d7-9f11-3e82d78e38e6" />
-</Solution>
