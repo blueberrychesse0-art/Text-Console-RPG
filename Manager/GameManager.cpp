@@ -7,7 +7,7 @@ GameManager::~GameManager()
 		delete instance;
 	}
 }
-
+  
 GameManager* GameManager::getInstance()
 {
 	if (instance == nullptr)
