@@ -1,4 +1,4 @@
-
+﻿
 
 #include "Troll.h"
 #include <cstdlib>
