@@ -13,6 +13,7 @@ protected:
 
 public:
 	Entity(std::string name, int health, int attack);
+public:
 	virtual ~Entity() {}
 
 	virtual void Attack() = 0;
