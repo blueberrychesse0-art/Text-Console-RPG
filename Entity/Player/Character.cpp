@@ -26,6 +26,32 @@ void Character::DisplayStatus() const
 	cout << "체력 : " << maxHealth << "/" << health << " | 공격력 : " << attack << endl
 		<< "현재 레벨 : " << level << " | 경험치 : " << experience << "/100" << endl;
 }
+void Character::AddExperience(int amount)
+{
+	experience += amount;
+	cout << "경험치 +" << amount << "획득! (" << experience << "/100)" << endl;
+
+	while (experience >= 100 && level<10)
+	{
+		cout << "* 레벨업 조건 충족!" << endl;
+		cout << "Lv." << level << "-> Lv.";
+		level++;
+		cout << level;
+		experience -= 100;
+		cout << " (" << experience << "/100)" << endl;
+
+		maxHealth += level * 20;
+		health = maxHealth;
+		attack += level * 5;
+		
+		if (experience > 100)
+		{
+			cout << "(레벨업 후 남은 경험치는 다음 레벨 경험치에 반영됩니다.)" << endl;
+		}
+	}
+}
+
+
 //int main() {
 //	string temp;
 //	cout << "이름을 입력하세요 : ";
