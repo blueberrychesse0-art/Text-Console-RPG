@@ -3,14 +3,12 @@
 
 using namespace std;
 
-Character::Character(std::string n) 
+Character::Character(std::string n, int health, int attack):Entity(n, health, attack)
 {
-	name = n;
+	
 	level = 1;
-	maxHealth = 200;
-	health = maxHealth;
-	attack = 30;
 	experience = 0;
+	gold = 0;
 }
 void Character::Attack()
 {
@@ -32,6 +30,6 @@ void Character::DisplayStatus() const
 //	string temp;
 //	cout << "이름을 입력하세요 : ";
 //	cin >> temp;
-//	Character MyCha(temp);
+//	Character MyCha(temp,200,30);
 //	MyCha.DisplayStatus();
 //}
