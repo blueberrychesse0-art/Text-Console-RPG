@@ -28,7 +28,7 @@ void GameManager::Init()
 
 void GameManager::CreatePlayer()
 {
-	string name;
+	std::string name;
 	std::cout << "플레이어 이름을 입력해 주세요: ";
 	std::cin >> name;
 
