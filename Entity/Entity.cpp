@@ -24,3 +24,19 @@ int Entity::GetAttack()const
 {
 	return attack;
 }
+int Entity::GetMaxHealth()const
+{
+	return maxHealth;
+}
+void Entity::AddHealth(int amount)
+{
+	health += amount;
+}
+void Entity::AddAttack(int amount)
+{
+	attack += amount;
+}
+void Entity::AddMaxHealth(int amount)
+{
+	maxHealth += amount;
+}

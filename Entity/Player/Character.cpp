@@ -3,16 +3,15 @@
 
 using namespace std;
 
-Character::Character(std::string n, int health, int attack):Entity(n, health, attack)
+Character::Character(std::string n):Entity(n, 200, 30)
 {
-	
 	level = 1;
 	experience = 0;
 	gold = 0;
 }
 void Character::Attack()
 {
-	cout << name << "ÀÇ °ø°Ý!" << endl;
+	cout << name << "ì˜ ê³µê²©!" << endl;
 }
 void Character::TakeDamage(int damage)
 {
@@ -21,19 +20,19 @@ void Character::TakeDamage(int damage)
 void Character::DisplayStatus() const
 {
 	cout << "\n====================================" << endl;
-	cout << name << "ÀÇ ÇöÀç »óÅÂ" << endl;
+	cout << name << "ì˜ í˜„ìž¬ ìƒíƒœ" << endl;
 	cout << "====================================" << endl;
-	cout << "Ã¼·Â : " << maxHealth << "/" << health << " | °ø°Ý·Â : " << attack << endl
-		<< "ÇöÀç ·¹º§ : " << level << " | °æÇèÄ¡ : " << experience << "/100" << endl;
+	cout << "ì²´ë ¥ : " << maxHealth << "/" << health << " | ê³µê²©ë ¥ : " << attack << endl
+		<< "í˜„ìž¬ ë ˆë²¨ : " << level << " | ê²½í—˜ì¹˜ : " << experience << "/100" << endl;
 }
 void Character::AddExperience(int amount)
 {
 	experience += amount;
-	cout << "°æÇèÄ¡ +" << amount << "È¹µæ! (" << experience << "/100)" << endl;
+	cout << "ê²½í—˜ì¹˜ +" << amount << "íšë“! (" << experience << "/100)" << endl;
 
 	while (experience >= 100 && level<10)
 	{
-		cout << "* ·¹º§¾÷ Á¶°Ç ÃæÁ·!" << endl;
+		cout << "* ë ˆë²¨ì—… ì¡°ê±´ ì¶©ì¡±!" << endl;
 		cout << "Lv." << level << "-> Lv.";
 		level++;
 		cout << level;
@@ -46,15 +45,28 @@ void Character::AddExperience(int amount)
 		
 		if (experience > 100)
 		{
-			cout << "(·¹º§¾÷ ÈÄ ³²Àº °æÇèÄ¡´Â ´ÙÀ½ ·¹º§ °æÇèÄ¡¿¡ ¹Ý¿µµË´Ï´Ù.)" << endl;
+			cout << "(ë ˆë²¨ì—… í›„ ë‚¨ì€ ê²½í—˜ì¹˜ëŠ” ë‹¤ìŒ ë ˆë²¨ ê²½í—˜ì¹˜ì— ë°˜ì˜ë©ë‹ˆë‹¤.)" << endl;
 		}
 	}
 }
 
 
+int Character::GetGold()const
+{
+	return gold;
+}
+void Character::AddGold(int amount)
+{
+	gold += amount;
+}
+void Character::UseGold(int amount)
+{
+	gold -= amount;
+}
+
 //int main() {
 //	string temp;
-//	cout << "ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä : ";
+//	cout << "ì´ë¦„ì„ ìž…ë ¥í•˜ì„¸ìš” : ";
 //	cin >> temp;
 //	Character MyCha(temp,200,30);
 //	MyCha.DisplayStatus();
