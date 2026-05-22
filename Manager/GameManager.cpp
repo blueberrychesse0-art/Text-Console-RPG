@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include <iostream>
+#include <string>
 
 GameManager::~GameManager()
 {
