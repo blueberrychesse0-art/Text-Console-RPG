@@ -1,4 +1,4 @@
-
+﻿
 
 #include "Goblin.h"
 #include <cstdlib>
