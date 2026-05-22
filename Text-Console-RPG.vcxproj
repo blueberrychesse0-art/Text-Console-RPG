@@ -123,13 +123,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Entity\Entity.cpp" />
+    <ClCompile Include="Entity\Monster\Goblin.cpp" />
+    <ClCompile Include="Entity\Monster\main.cpp" />
+    <ClCompile Include="Entity\Monster\Monster.cpp" />
+    <ClCompile Include="Entity\Monster\Orc.cpp" />
+    <ClCompile Include="Entity\Monster\Slime.cpp" />
+    <ClCompile Include="Entity\Monster\Troll.cpp" />
+    <ClCompile Include="Entity\Player\Character.cpp" />
+    <ClCompile Include="Entity\Player\Item\Item.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Entity\Entity.h" />
+    <ClInclude Include="Entity\Monster\Goblin.h" />
+    <ClInclude Include="Entity\Monster\Monster.h" />
+    <ClInclude Include="Entity\Monster\Orc.h" />
+    <ClInclude Include="Entity\Monster\Slime.h" />
+    <ClInclude Include="Entity\Monster\Troll.h" />
+    <ClInclude Include="Entity\Player\Character.h" />
+    <ClInclude Include="Entity\Player\Item\Item.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Entity\Monster\Monster.slnx" />
+    <None Include="Entity\Monster\Monster.vcxproj" />
+    <None Include="Entity\Monster\Monster.vcxproj.filters" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
