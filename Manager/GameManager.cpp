@@ -1,6 +1,4 @@
 #include "GameManager.h"
-#include <iostream>
-#include <string>
 
 GameManager::~GameManager()
 {
@@ -22,8 +20,8 @@ GameManager* GameManager::getInstance()
 
 void GameManager::Init()
 {
-	std::random_device rd;
-	engine.seed(rd());
+	std::random_device rd;		// 랜덤에 사용할것들 초기화
+	engine.seed(rd());			//
 }
 
 void GameManager::CreatePlayer()
@@ -32,7 +30,8 @@ void GameManager::CreatePlayer()
 	std::cout << "플레이어 이름을 입력해 주세요: ";
 	std::cin >> name;
 
-	player = new Character(name);
+	player = new Character(name, 200 , 30);
+	Battle();
 }
 
 void GameManager::Main()
@@ -69,9 +68,44 @@ void GameManager::Battle()
 {
 	monsters.push_back(SpawnRandomMonsters());
 
-	while ( player->GetHP( ) <= 0 || monsters.isEmpty( ) )
+	
+	while (player->GetHealth() <= 0 || monsters.empty())
 	{
+		int preHealth = monsters[0]->GetHealth();		// 공격 받기 전 체력
 
+		// 플레이어의 공격
+		player->Attack();
+		monsters[0]->TakeDamage(player->GetAttack());
+		std::cout << monsters[0]->GetName( ) << "에게 " << player->GetAttack( ) << " 데미지!" << std::endl;
+		std::cout << monsters[0]->GetName( ) << "체력 " << preHealth << " -> " << monsters[0]->GetHealth() << std::endl;
+
+		if (monsters[0]->GetHealth( ) <= 0)			// 몬스터가 죽었을 시
+		{
+			std::cout << "전투 승리! " << std::endl;
+			// TODO : 아이템획득, 경험치 획득, 골드 획득 추가해야함
+
+
+			for (Monster* m : monsters)
+			{
+				delete m;
+			}
+			monsters.clear( );
+			break;
+		}
+
+		// 몬스터의 공격
+		preHealth = player->GetHealth( );
+		monsters[0]->Attack( );
+		player->TakeDamage(monsters[0]->GetAttack( ));
+		std::cout << player->GetName( ) << "에게 " << monsters[0]->GetAttack() << " 데미지!" << std::endl;
+		std::cout << player->GetName( ) << "체력 " << preHealth << " -> " << player->GetHealth( ) << std::endl;
+
+		if (player->GetHealth( ) <= 0)			// 플레이어가가 죽었을 시
+		{
+			std::cout << "전투 패배! " << std::endl;
+			exit(0) // 일단 임시로 패배시 게임종료
+			break;
+		}
 	}
 }
 
@@ -89,13 +123,13 @@ Monster* GameManager::SpawnRandomMonsters()
 		newMonster = new Slime(player->GetPlayerLv()); // 플레이어 레벨 불러오는 함수 확인 필요
 		break;
 	case 1:			// 고블린
-		newMonster = new Goblin(player->GetPlayerLv( ));
+		newMonster = new Goblin(player->GetPlayerLv());
 		break;
 	case 2:			// 오크
-		newMonster = new Orc(player->GetPlayerLv( ));
+		newMonster = new Orc(player->GetPlayerLv());
 		break;
 	case 3:			// 트롤
-		newMonster = new Troll(player->GetPlayerLv( ));
+		newMonster = new Troll(player->GetPlayerLv());
 		break;
 	}
 
