@@ -22,13 +22,14 @@ GameManager* GameManager::getInstance()
 
 void GameManager::Init()
 {
-
+	std::random_device rd;
+	engine.seed(rd());
 }
 
 void GameManager::CreatePlayer()
 {
 	string name;
-	std::cout << "ÇÃ·¹ÀÌ¾î ÀÌ¸§À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä: ";
+	std::cout << "í”Œë ˆì´ì–´ ì´ë¦„ì„ ìž…ë ¥í•´ ì£¼ì„¸ìš”: ";
 	std::cin >> name;
 
 	player = new Character(name);
@@ -41,10 +42,10 @@ void GameManager::Main()
 	while (1)
 	{
 		std::cout << "======== Text-Console RPG ========" << std::endl;
-		std::cout << "1. ´øÀü ÀÔÀå" << std::endl;
-		std::cout << "0. °ÔÀÓ Á¾·á" << std::endl;
+		std::cout << "1. ë˜ì „ ìž…ìž¥" << std::endl;
+		std::cout << "0. ê²Œìž„ ì¢…ë£Œ" << std::endl;
 		std::cout << "==================================" << std::endl;
-		std::cout << "¼±ÅÃ : ";
+		std::cout << "ì„ íƒ : ";
 		std::cin >> select;
 
 		switch (select)
@@ -66,11 +67,38 @@ void GameManager::Main()
 
 void GameManager::Battle()
 {
+	monsters.push_back(SpawnRandomMonsters());
 
+	while ( player->GetHP( ) <= 0 || monsters.isEmpty( ) )
+	{
+
+	}
 }
 
-void GameManager::SpawnRandomMonsters()
+Monster* GameManager::SpawnRandomMonsters()
 {
+	// ëª¬ìŠ¤í„° ëžœë¤ ì„ íƒ
+	std::discrete_distribution<int> weightDist({ 40, 30, 20, 10 });		// ê¼­ í•©ì´ 100ì¼ í•„ìš”ëŠ” ì—†ìŒ
+	int roll = weightDist(engine);
 
+	Monster* newMonster = nullptr;
+
+	switch ( roll )
+	{
+	case 0:			// ìŠ¬ë¼ìž„
+		newMonster = new Slime(player->GetPlayerLv()); // í”Œë ˆì´ì–´ ë ˆë²¨ ë¶ˆëŸ¬ì˜¤ëŠ” í•¨ìˆ˜ í™•ì¸ í•„ìš”
+		break;
+	case 1:			// ê³ ë¸”ë¦°
+		newMonster = new Goblin(player->GetPlayerLv( ));
+		break;
+	case 2:			// ì˜¤í¬
+		newMonster = new Orc(player->GetPlayerLv( ));
+		break;
+	case 3:			// íŠ¸ë¡¤
+		newMonster = new Troll(player->GetPlayerLv( ));
+		break;
+	}
+
+	return newMonster;
 }
 
