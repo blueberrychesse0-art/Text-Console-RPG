@@ -82,6 +82,7 @@ void GameManager::Battle()
 		if (monsters[0]->GetHealth( ) <= 0)			// 몬스터가 죽었을 시
 		{
 			std::cout << "전투 승리! " << std::endl;
+
 			// TODO : 아이템획득, 경험치 획득, 골드 획득 추가해야함
 
 
@@ -117,7 +118,7 @@ Monster* GameManager::SpawnRandomMonsters()
 
 	Monster* newMonster = nullptr;
 
-	switch ( roll )
+	switch (roll)
 	{
 	case 0:			// 슬라임
 		newMonster = new Slime(player->GetPlayerLv()); // 플레이어 레벨 불러오는 함수 확인 필요
