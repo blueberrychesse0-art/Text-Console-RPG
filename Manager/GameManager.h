@@ -1,5 +1,8 @@
 #pragma once
+#include <iostream>
+#include <string>
 #include <vector>
+#include <random>
 #include "../Entity/Entity.h"
 #include "../Entity/Player/Character.h"
 #include "../Entity/Monster/Goblin.h"
@@ -15,6 +18,7 @@ private:
 	~GameManager();
 	Character* player = nullptr;
 	std::vector<Monster*> monsters;
+	std::mt19937 engine;
 public:
 	GameManager(const GameManager&) = delete;
 	GameManager& operator=(const GameManager&) = delete;
@@ -22,8 +26,10 @@ public:
 	static GameManager* getInstance();
 
 	void Init();
+	void Release();
 	void CreatePlayer();
 	void Main();
 	void Battle();
+	Monster* SpawnRandomMonsters();
 };
 

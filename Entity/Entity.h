@@ -22,5 +22,10 @@ public:
 	std::string GetName()const;
 	int GetHealth()const;
 	int GetAttack()const;
+	int GetMaxHealth()const;
+
+	void AddHealth(int amount);
+	void AddAttack(int amount);
+	void AddMaxHealth(int amount);
 };
 
