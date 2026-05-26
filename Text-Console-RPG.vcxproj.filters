@@ -51,6 +51,15 @@
     <ClCompile Include="Manager\GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity\Player\Item\Item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Player\Item\EquipMent\EquipMent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Player\Item\EquipMent\Weapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity\Player\Character.h">
@@ -75,6 +84,18 @@
       <Filter>Entity\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Manager\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Player\Item\Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWork.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Player\Item\EquipMent\EquipMent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Player\Item\EquipMent\Weapon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
