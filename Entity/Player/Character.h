@@ -31,6 +31,8 @@ public:
 	int GetAttack( )const override; // 무기 공격력을 포함한 공격력
 	int GetMaxHealth( )const override; // 갑옷 체력을 포함한 최대 체력
 
+	bool UseEnhancementStone( );
+
 	Weapon* GetEquippedWeapon( ) const;
 	Armor* GetEquippedArmor( ) const;
 
@@ -50,6 +52,7 @@ public:
 	Item* GetItem(int index) const;
 
 	void Equip(int inventoryIndex);	// 장비 장착
+
 
 };
 

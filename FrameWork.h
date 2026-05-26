@@ -9,8 +9,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
-#include "Entity/Player/Item/EquipMent/Weapon.h"
-#include "Entity/Player/Item/EquipMent/Armor.h"
+
 
 struct Stats
 {

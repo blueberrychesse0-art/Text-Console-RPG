@@ -1,7 +1,10 @@
+#pragma once
 #include "Character.h"
 #include "Item/Item.h"	//아이템 헤더 추가
 #include <iostream>
-
+#include "Item/EquipMent/EquipMent.h"
+#include "Item/EquipMent/Weapon.h"
+#include "Item/EquipMent/Armor.h"	
 using namespace std;
 
 Character::Character(std::string n):Entity(n, 200, 30)
@@ -79,7 +82,12 @@ void Character::Equip(int inventoryIndex)
 
 	Item* item = inventory[inventoryIndex];
 	EquipMent* equip = dynamic_cast<EquipMent*>(item);
-	if ( equip == nullptr )return; // 장비아이템이 아니면
+	if ( equip == nullptr )
+	{
+		std::cout << "장비 아이템이 아닙니다\n";
+		return; // 장비아이템이 아니면
+
+	}
 
 	Weapon* weapon = dynamic_cast< Weapon* >(equip);	// 무기인지 판독
 	if ( weapon != nullptr )
@@ -91,7 +99,7 @@ void Character::Equip(int inventoryIndex)
 		}
 		equippedWeapon = weapon;	// 무기 교체
 		
-		cout << weapon->GetName( ) << "(무기)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
+		cout << weapon->getName( ) << "(무기)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
 		return;
 	}
 
@@ -105,7 +113,7 @@ void Character::Equip(int inventoryIndex)
 		}
 		equippedArmor = armor;	// 갑옷 교체
 		
-		cout << armor->GetName() << "(방어구)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
+		cout << armor->getName() << "(방어구)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
 		return;
 	}
 }
@@ -207,4 +215,18 @@ int Character::GetInventorySize( ) const {
 Item* Character::GetItem(int index) const {
 	if ( index < 0 || index >= inventory.size( ) ) return nullptr;
 	return inventory[index];
+}
+bool Character::UseEnhancementStone( )
+{
+	for ( auto it = inventory.begin( ); it != inventory.end( ); ++it )
+	{
+		if ( ( *it )->getName( ) == "강화석" )
+		{
+			delete* it;
+			inventory.erase(it);
+			return true;
+		}
+	}
+	std::cout << "인벤토리에 강화석이 없습니다.\n";
+	return false;
 }
