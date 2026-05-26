@@ -26,5 +26,16 @@ public:
 
 	void AddGold(int amount);
 	void UseGold(int amount);
+
+	//Item* 해제 위한 소멸자, 인벤토리 기능
+	~Character();
+	void AddItem(Item* item);
+	void ShowInventory( ) const;
+	void SellItem(int index);
+	void RemoveItem(int index);
+
+	int GetInventorySize( ) const;
+
+	Item* GetItem(int index) const;
 };
 

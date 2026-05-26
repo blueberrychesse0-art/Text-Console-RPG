@@ -143,9 +143,11 @@
     <ClCompile Include="Entity\Player\Character.cpp" />
     <ClCompile Include="Entity\Player\Item\Item.cpp" />
     <ClCompile Include="Entity\Player\Item\EquipMent\EquipMent.cpp" />
+    <ClCompile Include="Entity\Player\Item\ItemManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
     <ClCompile Include="Entity\Player\Item\EquipMent\Weapon.cpp" />
+    <ClCompile Include="Entity\Player\Item\Shop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity\Entity.h" />
@@ -168,8 +170,10 @@
     <ClInclude Include="Entity\Player\Item\Item.h" />
     <ClInclude Include="Entity\Player\Item\EquipMent\EquipMent.h" />
     <ClInclude Include="FrameWork.h" />
+    <ClInclude Include="Entity\Player\Item\ItemManager.h" />
     <ClInclude Include="Manager\GameManager.h" />
     <ClInclude Include="Entity\Player\Item\EquipMent\Weapon.h" />
+    <ClInclude Include="Entity\Player\Item\Shop.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entity\Monster\Monster.slnx">
