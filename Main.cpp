@@ -6,6 +6,7 @@ int main()
 {
 	GameManager::getInstance()->Init();
 	GameManager::getInstance()->Main();
+	GameManager::getInstance()->Release( );
 
 	return 0;
 }
