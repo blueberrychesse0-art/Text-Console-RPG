@@ -1,9 +1,8 @@
 #include "Shop.h"
 #include "../Character.h"
 #include "Item.h"
-
-#include <iostream>
-#include <random>
+#include "ItemManager.h"
+#include "../../../FrameWork.h"
 
 
 
@@ -23,7 +22,7 @@ void Shop::BuyItem(Character* player , int choice) {
 	if ( choice == 1 ) {
 		if ( player->GetGold( ) >= 50 ) {
 			player->UseGold(50);
-			player->AddItem(new HealthPotion("체력 포션" , 50 , 1));
+			player->AddItem(ItemManager::getInstance()->CreateItem(ItemType::HealthPotion, 1));
 			std::cout << "남은 골드: " << player->GetGold( ) << " G" << std::endl;
 		}
 		else {
@@ -33,7 +32,7 @@ void Shop::BuyItem(Character* player , int choice) {
 	else if ( choice == 2 ) {
 		if ( player->GetGold( ) >= 50 ) {
 			player->UseGold(50);
-			player->AddItem(new AttackBoost("공격력 포션" , 10 , 1));
+			player->AddItem(ItemManager::getInstance()->CreateItem(ItemType::AttackBoost, 1));
 			std::cout << "남은 골드: " << player->GetGold( ) << " G" << std::endl;
 		}
 		else {
@@ -52,15 +51,15 @@ void Shop::BuyItem(Character* player , int choice) {
 
 			if ( randNum <= 10 ) {
 				std::cout << "체력 포션 당첨!" << std::endl;
-				player->AddItem(new HealthPotion("체력 포션" , 50 , 1));
+				player->AddItem(ItemManager::getInstance()->CreateItem(ItemType::HealthPotion, 1));
 			}
 			else if ( randNum <= 20 ) {
 				std::cout << "공격력 포션 당첨!" << std::endl;
-				player->AddItem(new AttackBoost("공격력 포션" , 10 , 1));
+				player->AddItem(ItemManager::getInstance()->CreateItem(ItemType::AttackBoost, 1));
 			}
 			else if ( randNum <= 40 ) {
 				std::cout << "강화석 당첨!" << std::endl;
-				player->AddItem(new EnhanceStone("강화석" , 1));
+				player->AddItem(ItemManager::getInstance()->CreateItem(ItemType::EnhanceStone, 1));
 			}
 			else if ( randNum <= 60 ) {
 				std::cout << "5G 당첨!" << std::endl;
@@ -87,10 +86,10 @@ void Shop::BuyItem(Character* player , int choice) {
 				Item* soldItem = player->GetItem(index);
 
 				if ( soldItem != nullptr ) {
-					int price = soldItem->getSellPrice( );
+					int price = soldItem->GetSellPrice( );
 					player->AddGold(price);
 					soldItem->AddCount(-1);
-					if ( soldItem->getCount( ) <= 0 ) {
+					if ( soldItem->GetCount( ) <= 0 ) {
 						player->RemoveItem(index);
 					}
 				}

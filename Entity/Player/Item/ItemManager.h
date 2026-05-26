@@ -6,8 +6,8 @@ enum class ItemType {
 	HealthPotion,
 	AttackBoost,
 	EnhanceStone,
-	BaseSword,
-	BaseArmor
+	Weapon,
+	Armor
 };
 
 class ItemManager {

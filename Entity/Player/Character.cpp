@@ -1,10 +1,8 @@
 #pragma once
 #include "Character.h"
 #include "Item/Item.h"	//아이템 헤더 추가
-#include <iostream>
-#include "Item/EquipMent/EquipMent.h"
-#include "Item/EquipMent/Weapon.h"
-#include "Item/EquipMent/Armor.h"	
+#include "../../FrameWork.h"
+
 using namespace std;
 
 Character::Character(std::string n):Entity(n, 200, 30)
@@ -163,16 +161,16 @@ Character::~Character() {
 //인벤토리 기능 구현 위해서 추가, AddItem 함수가 호출될 때 중복 검사
 void Character::AddItem(Item* newItem) {
 	for ( Item* item : inventory ) {
-		if ( item->getName() == newItem->getName()) {
-			item->AddCount(newItem->getCount());
+		if ( item->GetName() == newItem->GetName()) {
+			item->AddCount(newItem->GetCount());
 
-			std::cout << newItem->getName( ) << "을(를) 획득했습니다." << std::endl;
+			std::cout << newItem->GetName( ) << "을(를) 획득했습니다." << std::endl;
 			delete newItem;
 			return;
 		}
 	}
 	inventory.push_back(newItem);
-	std::cout << newItem->getName( ) << "을(를) 획득했습니다." << std::endl;
+	std::cout << newItem->GetName( ) << "을(를) 획득했습니다." << std::endl;
 }
 
 void Character::ShowInventory( ) const {
@@ -184,8 +182,8 @@ void Character::ShowInventory( ) const {
 		return;
 	}
 	for ( int i = 0; i < inventory.size( ); ++i ) {
-		std::cout << i + 1 << ". " << inventory[i]->getName( ) << " (" << inventory[i]->getCount( ) << "개) "
-			<< "(" << inventory[i]->getSellPrice( ) << " G" << std::endl;
+		std::cout << i + 1 << ". " << inventory[i]->GetName( ) << " (" << inventory[i]->GetCount( ) << "개) "
+			<< "(" << inventory[i]->GetSellPrice( ) << " G" << std::endl;
 	}
 }
 
@@ -195,7 +193,7 @@ void Character::SellItem(int index) {
 		return;
 	}
 	Item* item = inventory[index];
-	int sellPrice = item->getSellPrice( );
+	int sellPrice = item->GetSellPrice( );
 
 	AddGold(sellPrice);
 	item->AddCount(-1);
@@ -216,17 +214,46 @@ Item* Character::GetItem(int index) const {
 	if ( index < 0 || index >= inventory.size( ) ) return nullptr;
 	return inventory[index];
 }
-bool Character::UseEnhancementStone( )
-{
-	for ( auto it = inventory.begin( ); it != inventory.end( ); ++it )
-	{
-		if ( ( *it )->getName( ) == "강화석" )
-		{
-			delete* it;
-			inventory.erase(it);
-			return true;
+
+bool Character::UseItemInBattle( ) {
+	vector<int> usableItems;
+	std::cout << "==== [ 사용 가능한 아이템 ] ====" << std::endl;
+
+	int displayIndex = 1;
+	for ( int i = 0; i < inventory.size( ); ++i ) {
+		if ( inventory[i]->isUsableInBattle( ) ) {
+			cout << displayIndex << ". " << inventory[i]->GetName( ) << " (" << inventory[i]->GetCount( ) << "개)" << std::endl;
+		
+			usableItems.push_back(i);
+			displayIndex++;
 		}
 	}
-	std::cout << "인벤토리에 강화석이 없습니다.\n";
+	if ( usableItems.empty( ) ) {
+		cout << "(비어 있음)" << endl;
+		return false;
+	}
+
+	std::cout << "0. 뒤로 가기" << std::endl;
+	std::cout << "사용할 아이템 번호를 입력하세요: ";
+	int itemChoice;
+	cin >> itemChoice;
+
+	if ( itemChoice == 0 ) {
+		return false;
+	}
+
+	if ( itemChoice > 0 && itemChoice < displayIndex ) {
+		int targetInventoryIndex = usableItems[itemChoice - 1];
+		Item* selectedItem = inventory[targetInventoryIndex];
+
+		selectedItem->use(this);
+
+		if ( selectedItem->GetCount( ) <= 0 ) {
+			RemoveItem(targetInventoryIndex);
+		}
+		return true;
+	}
+
+	std::cout << "번호를 다시 입력하세요." << std::endl;
 	return false;
 }

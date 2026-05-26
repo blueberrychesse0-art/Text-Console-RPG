@@ -5,7 +5,7 @@
 class Weapon;
 class Armor;
 
-struct Item;
+class Item;
 
 class Character : public Entity
 {
@@ -53,6 +53,7 @@ public:
 
 	void Equip(int inventoryIndex);	// 장비 장착
 
+	bool UseItemInBattle( ); // 전투 중에 아이템 사용(호출하면 됨)
 
 };
 

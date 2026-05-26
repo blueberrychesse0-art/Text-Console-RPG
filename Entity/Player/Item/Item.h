@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../../../FrameWork.h"
 
 class Character;
@@ -18,15 +19,18 @@ public:
 	virtual ~Item() {}
 
 	virtual void use(Character* character) = 0;
-	int getCount() const { return count; }
+	int GetCount() const { return count; }
 
 	void AddCount(int amount) { count += amount; }
 	
 	//아이템 이름 반환
-	std::string getName() const { return name; }
+	std::string GetName() const { return name; }
 
 	//아이템 판매를 위한 가상 함수 추가
-	virtual int getSellPrice( ) const { return 1; }
+	virtual int GetSellPrice( ) const { return 1; }
+
+	//사용 가능한 아이템만 전투 중 인벤토리에 출력하기 위해 가상함수 추가
+	virtual bool isUsableInBattle( ) const { return false; }
 
 };
 
@@ -41,6 +45,7 @@ public:
 	}
 
 	void use(Character* character) override;
+	bool isUsableInBattle( ) const override { return true; }
 
 };
 
@@ -55,7 +60,7 @@ public:
 	}
 
 	void use(Character* character) override;
-
+	bool isUsableInBattle( ) const override { return true; }
 };
 
 //강화석
@@ -80,7 +85,7 @@ public:
 		std::cout << "검을 장착했습니다." << std::endl;
 	}
 
-	int getAttackPower( ) const { return attackPower; }
+	int GetAttackPower( ) const { return attackPower; }
 };
 
 class BaseArmor : public Item {
@@ -96,5 +101,5 @@ public:
 		std::cout << "갑옷을 장착했습니다." << std::endl;
 	}
 
-	int getArmorHealth( ) const { return armorHealth; }
+	int GetArmorHealth( ) const { return armorHealth; }
 };
