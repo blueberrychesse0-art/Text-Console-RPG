@@ -27,7 +27,7 @@ public:
 	void CreatePlayer();
 	void Main();
 	void Battle();
-	void EncounterBoss( );
+	void EncounterBoss();
 	Monster* SpawnRandomMonsters(float multiply);
 };
 

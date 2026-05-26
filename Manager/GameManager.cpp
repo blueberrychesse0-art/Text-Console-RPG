@@ -1,5 +1,5 @@
 #include "GameManager.h"
-//
+
 GameManager::~GameManager()
 {
 	if ( player != nullptr )
@@ -8,11 +8,11 @@ GameManager::~GameManager()
 		player = nullptr;
 	}
 
-	for ( Monster* m : monsters )
+	for (Monster* m : monsters)
 	{
-		if ( m != nullptr ) delete m;
+		if (m != nullptr) delete m;
 	}
-	monsters.clear( );
+	monsters.clear();
 }
   
 GameManager* GameManager::getInstance()
@@ -32,9 +32,9 @@ void GameManager::Init()
 	CreatePlayer();
 }
 
-void GameManager::Release( )
+void GameManager::Release()
 {
-	if ( instance != nullptr )
+	if (instance != nullptr)
 	{
 		delete instance;
 		instance = nullptr;
@@ -73,16 +73,16 @@ void GameManager::Main()
 		switch (select)
 		{
 		case 1:
-			if ( player->GetLevel( ) >= 10 )	// 플레이어가 10랩이상이면 보스스폰
+			if ( player->GetLevel() >= 10 )	// 플레이어가 10랩이상이면 보스스폰
 			{
-				EncounterBoss( );
+				EncounterBoss();
 			}
 			else
 			{
-				if ( monsters.empty( ) )
+				if ( monsters.empty() )		// 일반 몬스터 스폰
 				{
 					monsters.push_back(SpawnRandomMonsters(1.0f));
-					std::cout << "\n" << monsters[0]->GetName( ) << "(이)가 나타났다! " << std::endl;
+					std::cout << "\n" << monsters[0]->GetName() << "(이)가 나타났다! " << std::endl;
 				}
 			}
 			Battle();
@@ -102,7 +102,7 @@ void GameManager::Main()
 void GameManager::Battle()
 {
 	// 몬스터가 없으면 실행하지 않음
-	if ( monsters.empty( ) || monsters[0] == nullptr || player == nullptr) 
+	if ( monsters.empty() || monsters[0] == nullptr || player == nullptr) 
 		return;
 
 	while (player->GetHealth() > 0 && !monsters.empty())
@@ -111,7 +111,7 @@ void GameManager::Battle()
 		player->Attack();
 		monsters[0]->TakeDamage(player->GetAttack());
 
-		if (monsters[0]->GetHealth( ) <= 0)			// 몬스터가 죽었을 시
+		if (monsters[0]->GetHealth() <= 0)			// 몬스터가 죽었을 시
 		{
 			std::cout << "\n전투 승리! " << std::endl;
 
@@ -133,16 +133,16 @@ void GameManager::Battle()
 			{
 				delete m;
 			}
-			monsters.clear( );
+			monsters.clear();
 			break;
 		}
 
 		std::cout << std::endl;
 		// 몬스터의 공격
-		monsters[0]->Attack( );
+		monsters[0]->Attack();
 		player->TakeDamage(monsters[0]->GetAttack());
 
-		if (player->GetHealth( ) <= 0)			// 플레이어가가 죽었을 시
+		if (player->GetHealth() <= 0)			// 플레이어가가 죽었을 시
 		{
 			std::cout << "전투 패배! " << std::endl;
 			exit(0); // 일단 임시로 패배시 게임종료
@@ -151,7 +151,7 @@ void GameManager::Battle()
 	}
 }
 
-void GameManager::EncounterBoss( )
+void GameManager::EncounterBoss()
 {
 	if (monsters.empty())
 	{
@@ -194,9 +194,9 @@ Monster* GameManager::SpawnRandomMonsters(float multiply)
 	// 몬스터 스탯 배율 적용
 	if (newMonster != nullptr)
 	{
-		newMonster->AddHealth(newMonster->GetHealth( ) * multiply - newMonster->GetHealth());
+		newMonster->AddHealth(newMonster->GetHealth() * multiply - newMonster->GetHealth());
 		newMonster->AddMaxHealth(newMonster->GetMaxHealth( ) * multiply - newMonster->GetMaxHealth());
-		newMonster->AddAttack(newMonster->GetAttack( ) * multiply - newMonster->GetAttack());
+		newMonster->AddAttack(newMonster->GetAttack() * multiply - newMonster->GetAttack());
 	}
 
 	return newMonster;
