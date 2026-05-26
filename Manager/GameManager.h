@@ -1,8 +1,5 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <vector>
-#include <random>
+#include "../FrameWork.h"
 #include "../Entity/Entity.h"
 #include "../Entity/Player/Character.h"
 #include "../Entity/Monster/Goblin.h"
