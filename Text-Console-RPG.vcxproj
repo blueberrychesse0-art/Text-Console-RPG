@@ -102,6 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/source-charset:utf-8 /execution-charset:ks_c_5601-1987 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,11 +124,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entity\Player\Item\EquipMent\Armor.cpp" />
     <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="Entity\Monster\Goblin.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Entity\Monster\main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Entity\Monster\Monster.cpp">
@@ -143,9 +142,16 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Entity\Player\Character.cpp" />
+    <ClCompile Include="Entity\Player\Item\Item.cpp" />
+    <ClCompile Include="Entity\Player\Item\EquipMent\EquipMent.cpp" />
+    <ClCompile Include="Entity\Player\Item\ItemManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Manager\GameManager.cpp" />
+    <ClCompile Include="Entity\Player\Item\EquipMent\Weapon.cpp" />
+    <ClCompile Include="Entity\Player\Item\Shop.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Entity\Player\Item\EquipMent\Armor.h" />
     <ClInclude Include="Entity\Entity.h" />
     <ClInclude Include="Entity\Monster\Goblin.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -163,6 +169,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Entity\Player\Character.h" />
+    <ClInclude Include="Entity\Player\Item\Item.h" />
+    <ClInclude Include="Entity\Player\Item\EquipMent\EquipMent.h" />
+    <ClInclude Include="FrameWork.h" />
+    <ClInclude Include="Entity\Player\Item\ItemManager.h" />
+    <ClInclude Include="Manager\GameManager.h" />
+    <ClInclude Include="Entity\Player\Item\EquipMent\Weapon.h" />
+    <ClInclude Include="Entity\Player\Item\Shop.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entity\Monster\Monster.slnx">
