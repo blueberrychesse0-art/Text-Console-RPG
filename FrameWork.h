@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <ctime>
 
+
 struct Stats
 {
 	int health;
