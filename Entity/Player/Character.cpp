@@ -27,8 +27,15 @@ void Character::DisplayStatus() const
 }
 void Character::AddExperience(int amount)
 {
-	experience += amount;
-	cout << "경험치 +" << amount << "획득! (" << experience << "/100)" << endl;
+	if ( level < 10 ) //레벨 10이상부터는 경험치 안쌓이도록
+	{
+		experience += amount;
+		cout << "경험치 +" << amount << "획득! (" << experience << "/100)" << endl;
+	}
+	else
+	{
+		cout << "최대 레벨(Lv.10)에 도달했습니다.";
+	}
 
 	while (experience >= 100 && level<10)
 	{

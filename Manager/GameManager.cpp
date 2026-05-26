@@ -32,6 +32,10 @@ void GameManager::CreatePlayer()
 	std::cin >> name;
 
 	player = new Character(name);
+<<<<<<< Updated upstream
+=======
+	Battle(BattleMode::Auto);
+>>>>>>> Stashed changes
 }
 
 void GameManager::Main()
@@ -50,7 +54,23 @@ void GameManager::Main()
 		switch (select)
 		{
 		case 1:
+<<<<<<< Updated upstream
 			Battle();
+=======
+			if ( player->GetLevel() >= 10 )	// 플레이어가 10랩이상이면 보스스폰
+			{
+				EncounterBoss();
+			}
+			else
+			{
+				if ( monsters.empty() )		// 일반 몬스터 스폰
+				{
+					monsters.push_back(SpawnRandomMonsters(1.0f));
+					std::cout << "\n" << monsters[0]->GetName() << "(이)가 나타났다! " << std::endl;
+				}
+			}
+			Battle(BattleMode::Manual);
+>>>>>>> Stashed changes
 			break;
 		case 2:
 			break;
@@ -64,8 +84,253 @@ void GameManager::Main()
 	
 }
 
-void GameManager::Battle()
+void GameManager::Battle(BattleMode mode)
 {
+<<<<<<< Updated upstream
+=======
+	monsters.push_back(SpawnRandomMonsters( ));
+	std::cout << "\n" << monsters[0]->GetName( ) << " 이 나타났다! " << std::endl;
+	int select = 0;
+
+	if ( mode == BattleMode::Auto )      //자동 전투
+	{
+
+		while ( player->GetHealth( ) > 0 && !monsters.empty( ) )
+		{
+			int preHealth = monsters[0]->GetHealth( );		// 공격 받기 전 체력
+
+			// 플레이어의 공격
+			player->Attack( );
+			monsters[0]->TakeDamage(player->GetAttack( ));
+			//std::cout << monsters[0]->GetName( ) << "에게 " << player->GetAttack( ) << " 데미지!" << std::endl;
+			//std::cout << monsters[0]->GetName( ) << "체력 " << preHealth << " -> " << monsters[0]->GetHealth() << std::endl;
+
+			if ( monsters[0]->GetHealth( ) <= 0 )			// 몬스터가 죽었을 시
+			{
+				std::cout << "\n전투 승리! " << std::endl;
+
+				std::uniform_int_distribution<int> dist(10 , 21);		// 10 <= x < 21 
+
+				int money = dist(engine);
+				player->AddGold(money);			// 골드 추가
+				std::cout << "골드 " << money << " 획득!" << std::endl;
+
+				player->AddExperience(50);		// 경험치 추가
+
+				std::uniform_int_distribution<int> percent(0 , 10);
+				if ( percent(engine) < 3 )				// 아이템 추가
+				{
+					//TODO: 플레이어 아이템추가 함수
+				}
+
+				for ( Monster* m : monsters )
+				{
+					delete m;
+				}
+				monsters.clear( );
+				return;
+			}
+
+			std::cout << std::endl;
+			// 몬스터의 공격
+			preHealth = player->GetHealth( );
+			monsters[0]->Attack( );
+			player->TakeDamage(monsters[0]->GetAttack( ));
+			//std::cout << player->GetName( ) << "에게 " << monsters[0]->GetAttack() << " 데미지!" << std::endl;
+			//std::cout << player->GetName( ) << "체력 " << preHealth << " -> " << player->GetHealth( ) << std::endl;
+
+			if ( player->GetHealth( ) <= 0 )			// 플레이어가 죽었을 시
+			{
+				std::cout << "전투 패배! " << std::endl;
+				for ( Monster* m : monsters )
+				{
+					delete m;
+				}
+				monsters.clear( );
+				return;//메인메뉴로
+			}
+		}
+	}
+	else  // 수동 전투
+	{
+		while ( player->GetHealth( ) > 0 && !monsters.empty( ) )
+		{
+			std::cout << "1. 공격하기" << std::endl;
+			std::cout << "2. 아이템 사용" << std::endl;
+			std::cout << "3. 도망가기" << std::endl;
+			std::cin >> select;
+
+			switch ( select )
+			{
+			case 1: // 공격하기
+			{
+				int preHealth = monsters[0]->GetHealth( );		// 공격 받기 전 체력
+
+				// 플레이어의 공격
+				player->Attack( );
+				monsters[0]->TakeDamage(player->GetAttack( ));
+				//std::cout << monsters[0]->GetName( ) << "에게 " << player->GetAttack( ) << " 데미지!" << std::endl;
+				//std::cout << monsters[0]->GetName( ) << "체력 " << preHealth << " -> " << monsters[0]->GetHealth() << std::endl;
+
+				if ( monsters[0]->GetHealth( ) <= 0 )			// 몬스터가 죽었을 시
+				{
+					std::cout << "\n전투 승리! " << std::endl;
+
+					std::uniform_int_distribution<int> dist(10 , 21);		// 10 <= x < 21 
+
+					int money = dist(engine);
+					player->AddGold(money);			// 골드 추가
+					std::cout << "골드 " << money << " 획득!" << std::endl;
+
+					player->AddExperience(50);		// 경험치 추가
+
+					std::uniform_int_distribution<int> percent(0 , 10);
+					if ( percent(engine) < 3 )				// 아이템 추가
+					{
+						//TODO: 플레이어 아이템추가 함수
+					}
+
+					for ( Monster* m : monsters )
+					{
+						delete m;
+					}
+					monsters.clear( );
+					return;
+				}
+
+				std::cout << std::endl;
+				// 몬스터의 공격
+				preHealth = player->GetHealth( );
+				monsters[0]->Attack( );
+				player->TakeDamage(monsters[0]->GetAttack( ));
+				//std::cout << player->GetName( ) << "에게 " << monsters[0]->GetAttack() << " 데미지!" << std::endl;
+				//std::cout << player->GetName( ) << "체력 " << preHealth << " -> " << player->GetHealth( ) << std::endl;
+
+				if ( player->GetHealth( ) <= 0 )			// 플레이어가가 죽었을 시
+				{
+					std::cout << "전투 패배! " << std::endl;
+					for ( Monster* m : monsters )
+					{
+						delete m;
+					}
+					monsters.clear( );
+					return;
+				}
+
+
+				break;
+			}
+
+
+			case 2: // 아이템 사용
+				player->ShowInventory( );//아이템 인벤토리 보여주기
+
+
+				break;
+			case 3: // 도망 (메인메뉴로)
+				std::cout << "도망치기!" << std::endl;
+				for ( Monster* m : monsters )
+				{
+					delete m;
+				}
+				monsters.clear( );
+				return;
+
+			default:
+				std::cout << "잘못된 입력입니다." << std::endl;
+				break;
+			}
+		}
+
+	}
+
+
+
+
+}
+
+
+void GameManager::EncounterBoss()
+{
+	if (monsters.empty())
+	{
+		std::uniform_real_distribution<float> dist(1.0f , 1.5f);
+		float multiply = dist(engine);
+
+		monsters.push_back(SpawnRandomMonsters(multiply));
+		std::cout << "\n[BOSS] 강력한 " << monsters[0]->GetName( ) << " 이 나타났다! " << std::endl;
+	}
+}
+
+Monster* GameManager::SpawnRandomMonsters(float multiply)
+{
+	// 몬스터 랜덤 선택
+	std::discrete_distribution<int> weightDist({ 40, 30, 20, 10 });		// 꼭 합이 100일 필요는 없음
+	int roll = weightDist(engine);
+
+	Monster* newMonster = nullptr;
+	int playerLevel = player->GetLevel();
+
+	switch (roll)
+	{
+	case 0:			// 슬라임
+		newMonster = new Slime(playerLevel);
+		break;
+	case 1:			// 고블린
+		newMonster = new Goblin(playerLevel);
+		break;
+	case 2:			// 오크
+		newMonster = new Orc(playerLevel);
+		break;
+	case 3:			// 트롤
+		newMonster = new Troll(playerLevel);
+		break;
+	default:
+		newMonster = new Slime(playerLevel);
+		break;
+	}
+
+	// 몬스터 스탯 배율 적용
+	if (newMonster != nullptr)
+	{
+		newMonster->AddHealth(newMonster->GetHealth() * multiply - newMonster->GetHealth());
+		newMonster->AddMaxHealth(newMonster->GetMaxHealth( ) * multiply - newMonster->GetMaxHealth());
+		newMonster->AddAttack(newMonster->GetAttack() * multiply - newMonster->GetAttack());
+	}
+
+	return newMonster;
+}
+bool GameManager::IsEnchantSuccess(int currentLv)
+{
+	std::map<int , int> successRates =
+	{
+		{0,100},
+		{1,90},
+		{2,70},
+		{3,40},
+	};
+
+	int rate = 0;
+	if ( successRates.find(currentLv) != successRates.end())	// 4단계 이상은 10퍼센트(임시)
+	{
+		rate = successRates[currentLv];
+	}
+	else
+	{
+		rate = 10;
+	}
+
+	std::srand(std::time(nullptr));
+	int random_number = std::rand( ) % 100 + 1;
+	if ( random_number <= rate )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+>>>>>>> Stashed changes
 
 }
 
