@@ -108,53 +108,97 @@ void GameManager::Main()
 				switch (smithySelect)
 				{
 				case 1:
+					
 					Weapon * currentWeapon = player->GetEquippedWeapon();
-					Stats weaponStats = currentWeapon->GetStats( );
-					int currentLv = weaponStats.lv;
 					if ( currentWeapon == nullptr )
 					{
 						std::cout << "현재 장착 중인 무기가 없습니다! 먼저 무기를 장착하세요.\n";
 						break;
 					}
-					
-					if( GameManager::IsEnchantSuccess(currentLv)==true)
+					if ( player->UseEnhancementStone( ) == false )
 					{
-						std::cout << "강화 성공!\n";
-						weaponStats.lv = currentLv + 1;      
-						weaponStats.atk += 10;
+						std::cout << "인벤토리에 [강화석]이 없습니다!\n";
+						break;
+					}
+					int currentGold = player->GetGold( );
+					Stats weaponStats = currentWeapon->GetStats( );
+					int currentLv = weaponStats.lv;
+					int cost = 100 * currentLv;
 
-						currentWeapon->SetStats(weaponStats);
+					if ( currentGold >= cost )
+					{
+						
+						player->UseGold(cost);
+
+						if ( GameManager::IsEnchantSuccess(currentLv) == true )
+						{
+							std::cout << "강화 성공!\n";
+							weaponStats.lv = currentLv + 1;
+							weaponStats.atk += 10;
+
+							currentWeapon->SetStats(weaponStats);
+						}
+						else
+						{
+							std::cout << "강화 실패!\n";
+						}
+
+						
+						
 					}
 					else
 					{
-						std::cout << "강화 실패!\n";
+						std::cout << "골드가 부족합니다! (필요한 골드 : " << cost << "G)\n";
+						break;
 					}
 					
-					break;
 				case 2:
+					
 					Armor * currentArmor = player->GetEquippedArmor();
-					Stats armorStats = currentArmor->GetStats( );
-					int currentLv = armorStats.lv;
 					if ( currentArmor == nullptr )
 					{
 						std::cout << "현재 장착 중인 갑옷이 없습니다! 먼저 갑옷을 장착하세요.\n";
 						break;
 					}
-					if ( GameManager::IsEnchantSuccess(currentArmor->GetStats( ).lv) == true )
+					if ( player->UseEnhancementStone( ) == false ) 
 					{
-						std::cout << "강화 성공!\n";
-						armorStats.lv = currentLv + 1;
-						armorStats.atk += 10;
+						std::cout << "인벤토리에 [강화석]이 없습니다!\n";
+						break;
+					}
+					int currentGold = player->GetGold( );
+					Stats armorStats = currentArmor->GetStats( );
+					int currentLv = armorStats.lv;
+					int cost = 100 * currentLv;
 
-						currentArmor->SetStats(armorStats);
+					if ( currentGold >= cost )
+					{
+						player->UseGold(cost);
+
+						if ( GameManager::IsEnchantSuccess(currentArmor->GetStats( ).lv) == true )
+						{
+							std::cout << "강화 성공!\n";
+							armorStats.lv = currentLv + 1;
+							armorStats.health += 10;
+
+							currentArmor->SetStats(armorStats);
+						}
+						else
+						{
+							std::cout << "강화 실패!\n";
+						}
 					}
 					else
 					{
-						std::cout << "강화 실패!\n";
+						std::cout << "골드가 부족합니다! (필요한 골드 : "<< cost<<"G)\n";
+						break;
 					}
 					break;
 				case 3:
-					player->DisplayStatus();
+					int inventoryNum = -1;
+					player->ShowInventory( );
+					std::cout << "장착할 장비의 번호를 알려주세요 :";
+					std::cin >> inventoryNum;
+					player->Equip(inventoryNum);
 					break;
 				case 0:
 					isExit = true;

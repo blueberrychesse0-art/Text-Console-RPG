@@ -1,3 +1,4 @@
+#pragma once
 #include "Character.h"
 #include "Item/Item.h"	//아이템 헤더 추가
 #include "../../FrameWork.h"
@@ -79,7 +80,12 @@ void Character::Equip(int inventoryIndex)
 
 	Item* item = inventory[inventoryIndex];
 	EquipMent* equip = dynamic_cast<EquipMent*>(item);
-	if ( equip == nullptr )return; // 장비아이템이 아니면
+	if ( equip == nullptr )
+	{
+		std::cout << "장비 아이템이 아닙니다\n";
+		return; // 장비아이템이 아니면
+
+	}
 
 	Weapon* weapon = dynamic_cast< Weapon* >(equip);	// 무기인지 판독
 	if ( weapon != nullptr )
@@ -91,7 +97,7 @@ void Character::Equip(int inventoryIndex)
 		}
 		equippedWeapon = weapon;	// 무기 교체
 		
-		cout << weapon->GetName( ) << "(무기)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
+		cout << weapon->getName( ) << "(무기)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
 		return;
 	}
 
@@ -105,7 +111,7 @@ void Character::Equip(int inventoryIndex)
 		}
 		equippedArmor = armor;	// 갑옷 교체
 		
-		cout << armor->GetName() << "(방어구)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
+		cout << armor->getName() << "(방어구)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
 		return;
 	}
 }

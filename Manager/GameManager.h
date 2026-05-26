@@ -6,6 +6,8 @@
 #include "../Entity/Monster/Orc.h"
 #include "../Entity/Monster/Slime.h"
 #include "../Entity/Monster/Troll.h"
+#include "../Entity/Player/Item/EquipMent/Weapon.h"
+#include "../Entity/Player/Item/EquipMent/Armor.h"
 
 class GameManager
 {
