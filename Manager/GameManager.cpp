@@ -53,6 +53,10 @@ void GameManager::CreatePlayer()
 
 void GameManager::Main()
 {
+	// CreatePlayer가 제대로 실행되지않아 player가 없으면 실행하지않음
+	if (player == nullptr)
+		return;
+
 	int select = -1;
 
 	while (1)
@@ -60,13 +64,27 @@ void GameManager::Main()
 		std::cout << "\n========= Text-Console RPG =========" << std::endl;
 		std::cout << "1. 던전 입장" << std::endl;
 		std::cout << "0. 게임 종료" << std::endl;
+
 		player->DisplayStatus();
+
 		std::cout << "\n선택 : ";
 		std::cin >> select;
 
 		switch (select)
 		{
 		case 1:
+			if ( player->GetLevel( ) >= 10 )	// 플레이어가 10랩이상이면 보스스폰
+			{
+				EncounterBoss( );
+			}
+			else
+			{
+				if ( monsters.empty( ) )
+				{
+					monsters.push_back(SpawnRandomMonsters(1.0f));
+					std::cout << "\n" << monsters[0]->GetName( ) << "(이)가 나타났다! " << std::endl;
+				}
+			}
 			Battle();
 			break;
 		case 2:
@@ -83,18 +101,15 @@ void GameManager::Main()
 
 void GameManager::Battle()
 {
-	monsters.push_back(SpawnRandomMonsters());
-	std::cout <<"\n" << monsters[0]->GetName() << " 이 나타났다! " << std::endl;
+	// 몬스터가 없으면 실행하지 않음
+	if ( monsters.empty( ) || monsters[0] == nullptr || player == nullptr) 
+		return;
 
 	while (player->GetHealth() > 0 && !monsters.empty())
 	{
-		int preHealth = monsters[0]->GetHealth();		// 공격 받기 전 체력
-
 		// 플레이어의 공격
 		player->Attack();
 		monsters[0]->TakeDamage(player->GetAttack());
-		//std::cout << monsters[0]->GetName( ) << "에게 " << player->GetAttack( ) << " 데미지!" << std::endl;
-		//std::cout << monsters[0]->GetName( ) << "체력 " << preHealth << " -> " << monsters[0]->GetHealth() << std::endl;
 
 		if (monsters[0]->GetHealth( ) <= 0)			// 몬스터가 죽었을 시
 		{
@@ -124,11 +139,8 @@ void GameManager::Battle()
 
 		std::cout << std::endl;
 		// 몬스터의 공격
-		preHealth = player->GetHealth( );
 		monsters[0]->Attack( );
 		player->TakeDamage(monsters[0]->GetAttack());
-		//std::cout << player->GetName( ) << "에게 " << monsters[0]->GetAttack() << " 데미지!" << std::endl;
-		//std::cout << player->GetName( ) << "체력 " << preHealth << " -> " << player->GetHealth( ) << std::endl;
 
 		if (player->GetHealth( ) <= 0)			// 플레이어가가 죽었을 시
 		{
@@ -139,28 +151,52 @@ void GameManager::Battle()
 	}
 }
 
-Monster* GameManager::SpawnRandomMonsters()
+void GameManager::EncounterBoss( )
+{
+	if (monsters.empty())
+	{
+		std::uniform_real_distribution<float> dist(1.0f , 1.5f);
+		float multiply = dist(engine);
+
+		monsters.push_back(SpawnRandomMonsters(multiply));
+		std::cout << "\n[BOSS] 강력한 " << monsters[0]->GetName( ) << " 이 나타났다! " << std::endl;
+	}
+}
+
+Monster* GameManager::SpawnRandomMonsters(float multiply)
 {
 	// 몬스터 랜덤 선택
 	std::discrete_distribution<int> weightDist({ 40, 30, 20, 10 });		// 꼭 합이 100일 필요는 없음
 	int roll = weightDist(engine);
 
 	Monster* newMonster = nullptr;
+	int playerLevel = player->GetLevel();
 
 	switch (roll)
 	{
 	case 0:			// 슬라임
-		newMonster = new Slime(player->GetLevel());
+		newMonster = new Slime(playerLevel);
 		break;
 	case 1:			// 고블린
-		newMonster = new Goblin(player->GetLevel( ));
+		newMonster = new Goblin(playerLevel);
 		break;
 	case 2:			// 오크
-		newMonster = new Orc(player->GetLevel( ));
+		newMonster = new Orc(playerLevel);
 		break;
 	case 3:			// 트롤
-		newMonster = new Troll(player->GetLevel( ));
+		newMonster = new Troll(playerLevel);
 		break;
+	default:
+		newMonster = new Slime(playerLevel);
+		break;
+	}
+
+	// 몬스터 스탯 배율 적용
+	if (newMonster != nullptr)
+	{
+		newMonster->AddHealth(newMonster->GetHealth( ) * multiply - newMonster->GetHealth());
+		newMonster->AddMaxHealth(newMonster->GetMaxHealth( ) * multiply - newMonster->GetMaxHealth());
+		newMonster->AddAttack(newMonster->GetAttack( ) * multiply - newMonster->GetAttack());
 	}
 
 	return newMonster;
