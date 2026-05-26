@@ -28,5 +28,6 @@ public:
 	void Main();
 	void Battle();
 	Monster* SpawnRandomMonsters();
+	bool IsEnchantSuccess(int currentLv);
 };
 

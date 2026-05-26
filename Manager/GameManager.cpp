@@ -59,6 +59,7 @@ void GameManager::Main()
 	{
 		std::cout << "\n========= Text-Console RPG =========" << std::endl;
 		std::cout << "1. 던전 입장" << std::endl;
+		std::cout << "3. 대장간 방문" << std::endl;
 		std::cout << "0. 게임 종료" << std::endl;
 		player->DisplayStatus();
 		std::cout << "\n선택 : ";
@@ -70,6 +71,84 @@ void GameManager::Main()
 			Battle();
 			break;
 		case 2:
+			break;
+		case 3:
+			int smithySelect = -1;
+			bool isExit = false;
+			std::cout << "=======================================\n";
+			std::cout << "[FORGE] 대장간 : 장비를 강화할 수 있습니다.\n";
+			std::cout << "=======================================\n";
+			while ( 1 )
+			{
+				
+				std::cout << "1. 무기 강화 (공격력 상승)\n";
+				std::cout << "2. 방어구 강화 (최대 체력 상승)\n";
+				std::cout << "3. 장비 장착하기\n";
+				std::cout << "0. 대장간 나가기\n";
+				std::cout << "선택 : ";
+				std::cin >> smithySelect;
+				switch (smithySelect)
+				{
+				case 1:
+					Weapon * currentWeapon = player->GetEquippedWeapon();
+					Stats weaponStats = currentWeapon->GetStats( );
+					int currentLv = weaponStats.lv;
+					if ( currentWeapon == nullptr )
+					{
+						std::cout << "현재 장착 중인 무기가 없습니다! 먼저 무기를 장착하세요.\n";
+						break;
+					}
+					
+					if( GameManager::IsEnchantSuccess(currentLv)==true)
+					{
+						std::cout << "강화 성공!\n";
+						weaponStats.lv = currentLv + 1;      
+						weaponStats.atk += 10;
+
+						currentWeapon->SetStats(weaponStats);
+					}
+					else
+					{
+						std::cout << "강화 실패!\n";
+					}
+					
+					break;
+				case 2:
+					Armor * currentArmor = player->GetEquippedArmor();
+					Stats armorStats = currentArmor->GetStats( );
+					int currentLv = armorStats.lv;
+					if ( currentArmor == nullptr )
+					{
+						std::cout << "현재 장착 중인 갑옷이 없습니다! 먼저 갑옷을 장착하세요.\n";
+						break;
+					}
+					if ( GameManager::IsEnchantSuccess(currentArmor->GetStats( ).lv) == true )
+					{
+						std::cout << "강화 성공!\n";
+						armorStats.lv = currentLv + 1;
+						armorStats.atk += 10;
+
+						currentArmor->SetStats(armorStats);
+					}
+					else
+					{
+						std::cout << "강화 실패!\n";
+					}
+					break;
+				case 3:
+					player->DisplayStatus();
+					break;
+				case 0:
+					isExit = true;
+					break;
+				default:
+					break;
+				}
+				if ( isExit )
+				{
+					break;
+				}
+			}
 			break;
 		case 0:
 			return;
@@ -164,5 +243,37 @@ Monster* GameManager::SpawnRandomMonsters()
 	}
 
 	return newMonster;
+}
+bool GameManager::IsEnchantSuccess(int currentLv)
+{
+	std::map<int , int> successRates =
+	{
+		{0,100},
+		{1,90},
+		{2,70},
+		{3,40},
+	};
+
+	int rate = 0;
+	if ( successRates.find(currentLv) != successRates.end())	// 4단계 이상은 10퍼센트(임시)
+	{
+		rate = successRates[currentLv];
+	}
+	else
+	{
+		rate = 10;
+	}
+
+	std::srand(std::time(nullptr));
+	int random_number = std::rand( ) % 100 + 1;
+	if ( random_number <= rate )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
 }
 
