@@ -60,10 +60,12 @@
     <ClCompile Include="Entity\Player\Item\EquipMent\Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+
     <ClCompile Include="Entity\Player\Item\Shop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Entity\Player\Item\ItemManager.cpp">
+    <ClCompile Include="Entity\Player\Item\EquipMent\Armor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,10 +106,12 @@
     <ClInclude Include="Entity\Player\Item\EquipMent\Weapon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+
     <ClInclude Include="Entity\Player\Item\Shop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity\Player\Item\ItemManager.h">
+    <ClInclude Include="Entity\Player\Item\EquipMent\Armor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

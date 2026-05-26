@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entity\Player\Item\EquipMent\Armor.cpp" />
     <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="Entity\Monster\Goblin.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -150,6 +151,7 @@
     <ClCompile Include="Entity\Player\Item\Shop.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Entity\Player\Item\EquipMent\Armor.h" />
     <ClInclude Include="Entity\Entity.h" />
     <ClInclude Include="Entity\Monster\Goblin.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
