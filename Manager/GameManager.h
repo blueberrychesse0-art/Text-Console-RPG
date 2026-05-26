@@ -36,7 +36,6 @@ public:
 	void Main();
 	void Battle();
 	void Battle(BattleMode mode);
-	Monster* SpawnRandomMonsters();
 	bool IsEnchantSuccess(int currentLv);
 	void EncounterBoss();
 	Monster* SpawnRandomMonsters(float multiply);

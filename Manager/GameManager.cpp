@@ -49,7 +49,6 @@ void GameManager::CreatePlayer()
 
 	player = new Character(name);
 	Battle(BattleMode::Auto);
-
 }
 
 void GameManager::Main()
@@ -88,9 +87,6 @@ void GameManager::Main()
 				}
 			}
 			Battle(BattleMode::Manual);
-
-	
-
 			break;
 		case 2:
 			break;
@@ -235,8 +231,6 @@ void GameManager::Main()
 
 void GameManager::Battle(BattleMode mode)
 {
-	monsters.push_back(SpawnRandomMonsters( ));
-	std::cout << "\n" << monsters[0]->GetName( ) << " 이 나타났다! " << std::endl;
 	int select = 0;
 
 	if ( mode == BattleMode::Auto )      //자동 전투
@@ -396,7 +390,8 @@ void GameManager::Battle(BattleMode mode)
 
 }
 
-
+void GameManager::Battle()
+{
 	// 몬스터가 없으면 실행하지 않음
 	if ( monsters.empty() || monsters[0] == nullptr || player == nullptr) 
 		return;
@@ -498,6 +493,7 @@ Monster* GameManager::SpawnRandomMonsters(float multiply)
 
 	return newMonster;
 }
+
 bool GameManager::IsEnchantSuccess(int currentLv)
 {
 	std::map<int , int> successRates =
@@ -528,81 +524,4 @@ bool GameManager::IsEnchantSuccess(int currentLv)
 	{
 		return false;
 	}
-
-
-		monsters.push_back(SpawnRandomMonsters(multiply));
-		std::cout << "\n[BOSS] 강력한 " << monsters[0]->GetName( ) << " 이 나타났다! " << std::endl;
-	}
 }
-
-Monster* GameManager::SpawnRandomMonsters(float multiply)
-{
-	// 몬스터 랜덤 선택
-	std::discrete_distribution<int> weightDist({ 40, 30, 20, 10 });		// 꼭 합이 100일 필요는 없음
-	int roll = weightDist(engine);
-
-	Monster* newMonster = nullptr;
-	int playerLevel = player->GetLevel();
-
-	switch (roll)
-	{
-	case 0:			// 슬라임
-		newMonster = new Slime(playerLevel);
-		break;
-	case 1:			// 고블린
-		newMonster = new Goblin(playerLevel);
-		break;
-	case 2:			// 오크
-		newMonster = new Orc(playerLevel);
-		break;
-	case 3:			// 트롤
-		newMonster = new Troll(playerLevel);
-		break;
-	default:
-		newMonster = new Slime(playerLevel);
-		break;
-	}
-
-	// 몬스터 스탯 배율 적용
-	if (newMonster != nullptr)
-	{
-		newMonster->AddHealth(newMonster->GetHealth() * multiply - newMonster->GetHealth());
-		newMonster->AddMaxHealth(newMonster->GetMaxHealth( ) * multiply - newMonster->GetMaxHealth());
-		newMonster->AddAttack(newMonster->GetAttack() * multiply - newMonster->GetAttack());
-	}
-
-	return newMonster;
-}
-bool GameManager::IsEnchantSuccess(int currentLv)
-{
-	std::map<int , int> successRates =
-	{
-		{0,100},
-		{1,90},
-		{2,70},
-		{3,40},
-	};
-
-	int rate = 0;
-	if ( successRates.find(currentLv) != successRates.end())	// 4단계 이상은 10퍼센트(임시)
-	{
-		rate = successRates[currentLv];
-	}
-	else
-	{
-		rate = 10;
-	}
-
-	std::srand(std::time(nullptr));
-	int random_number = std::rand( ) % 100 + 1;
-	if ( random_number <= rate )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
-}
-
