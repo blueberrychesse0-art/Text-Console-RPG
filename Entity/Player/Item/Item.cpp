@@ -1,6 +1,5 @@
 #include "Item.h"
 #include "../Character.h"
-#include <iostream>
 
 void HealthPotion::use(Character* character) {
 
