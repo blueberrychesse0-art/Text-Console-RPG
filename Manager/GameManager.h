@@ -29,5 +29,7 @@ public:
 	void Battle();
 	Monster* SpawnRandomMonsters();
 	bool IsEnchantSuccess(int currentLv);
+	void EncounterBoss();
+	Monster* SpawnRandomMonsters(float multiply);
 };
 

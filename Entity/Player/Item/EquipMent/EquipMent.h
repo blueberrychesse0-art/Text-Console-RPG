@@ -8,7 +8,7 @@ protected:
 	Stats stats;
 public:
 	EquipMent(std::string name , Stats stats , int count = 1) : Item(name , count) , stats(stats) {};
-	Stats GetStats( ) { return stats; }
+	Stats GetStats() { return stats; }
 	void SetStats(Stats stats) { this->stats = stats; }
 	void SetLevel(int lv) { stats.lv = lv; }
 };
