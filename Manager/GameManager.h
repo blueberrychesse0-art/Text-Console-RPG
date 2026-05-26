@@ -9,6 +9,12 @@
 #include "../Entity/Player/Item/EquipMent/Weapon.h"
 #include "../Entity/Player/Item/EquipMent/Armor.h"
 
+enum class BattleMode //전투 처음시작은 자동/ 이후는 수동으로 처리
+{
+	Auto ,
+	Manual
+};
+
 class GameManager
 {
 private:
@@ -29,9 +35,11 @@ public:
 	void CreatePlayer();
 	void Main();
 	void Battle();
+	void Battle(BattleMode mode);
 	Monster* SpawnRandomMonsters();
 	bool IsEnchantSuccess(int currentLv);
 	void EncounterBoss();
 	Monster* SpawnRandomMonsters(float multiply);
+
 };
 
