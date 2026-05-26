@@ -1,6 +1,9 @@
 #pragma once
 #include "Character.h"
 #include "Item/Item.h"	//아이템 헤더 추가
+#include "Item/EquipMent/EquipMent.h"
+#include "Item/EquipMent/Armor.h"
+#include "Item/EquipMent/Weapon.h"
 #include "../../FrameWork.h"
 
 using namespace std;
@@ -97,7 +100,7 @@ void Character::Equip(int inventoryIndex)
 		}
 		equippedWeapon = weapon;	// 무기 교체
 		
-		cout << weapon->getName( ) << "(무기)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
+		cout << weapon->GetName( ) << "(무기)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
 		return;
 	}
 
@@ -111,7 +114,7 @@ void Character::Equip(int inventoryIndex)
 		}
 		equippedArmor = armor;	// 갑옷 교체
 		
-		cout << armor->getName() << "(방어구)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
+		cout << armor->GetName() << "(방어구)을 장착했습니다.\n"; // 아이템 GetName 만들어져야함
 		return;
 	}
 }
@@ -142,13 +145,7 @@ Armor* Character::GetEquippedArmor( )const
 	return equippedArmor;
 }
 
-//int main() {
-//	string temp;
-//	cout << "이름을 입력하세요 : ";
-//	cin >> temp;
-//	Character MyCha(temp,200,30);
-//	MyCha.DisplayStatus();
-//}
+
 
 //아이템 메모리 누수 방지
 Character::~Character() {
@@ -256,4 +253,19 @@ bool Character::UseItemInBattle( ) {
 
 	std::cout << "번호를 다시 입력하세요." << std::endl;
 	return false;
+}
+
+bool Character::UseEnhancementStone( )
+{
+	for ( auto it = inventory.begin( ); it != inventory.end( ); ++it ) {
+		
+		if ( ( *it )->GetName( ) == "강화석" ) {
+			
+			delete* it;
+			inventory.erase(it);
+			return true; 
+		}
+	}
+	return false; 
+
 }
