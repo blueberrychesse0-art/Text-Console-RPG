@@ -71,26 +71,27 @@ void GameManager::Main()
 		std::cout << "\n선택 : ";
 		std::cin >> select;
 
-		switch (select)
+		switch ( select )
 		{
 		case 1:
-			if ( player->GetLevel() >= 10 )	// 플레이어가 10랩이상이면 보스스폰
+			if ( player->GetLevel( ) >= 10 )	// 플레이어가 10랩이상이면 보스스폰
 			{
-				EncounterBoss();
+				EncounterBoss( );
 			}
 			else
 			{
-				if ( monsters.empty() )		// 일반 몬스터 스폰
+				if ( monsters.empty( ) )		// 일반 몬스터 스폰
 				{
 					monsters.push_back(SpawnRandomMonsters(1.0f));
-					std::cout << "\n" << monsters[0]->GetName() << "(이)가 나타났다! " << std::endl;
+					std::cout << "\n" << monsters[0]->GetName( ) << "(이)가 나타났다! " << std::endl;
 				}
 			}
-			Battle();
+			Battle( );
 			break;
 		case 2:
 			break;
 		case 3:
+		{
 			int smithySelect = -1;
 			bool isExit = false;
 			std::cout << "=======================================\n";
@@ -98,28 +99,24 @@ void GameManager::Main()
 			std::cout << "=======================================\n";
 			while ( 1 )
 			{
-				
+
 				std::cout << "1. 무기 강화 (공격력 상승)\n";
 				std::cout << "2. 방어구 강화 (최대 체력 상승)\n";
 				std::cout << "3. 장비 장착하기\n";
 				std::cout << "0. 대장간 나가기\n";
 				std::cout << "선택 : ";
 				std::cin >> smithySelect;
-				switch (smithySelect)
+				switch ( smithySelect )
 				{
 				case 1:
-					
-					Weapon * currentWeapon = player->GetEquippedWeapon();
+				{
+					Weapon* currentWeapon = player->GetEquippedWeapon( );
 					if ( currentWeapon == nullptr )
 					{
 						std::cout << "현재 장착 중인 무기가 없습니다! 먼저 무기를 장착하세요.\n";
 						break;
 					}
-					if ( player->UseEnhancementStone( ) == false )
-					{
-						std::cout << "인벤토리에 [강화석]이 없습니다!\n";
-						break;
-					}
+					
 					int currentGold = player->GetGold( );
 					Stats weaponStats = currentWeapon->GetStats( );
 					int currentLv = weaponStats.lv;
@@ -127,7 +124,11 @@ void GameManager::Main()
 
 					if ( currentGold >= cost )
 					{
-						
+						if ( player->UseEnhancementStone( ) == false )
+						{
+							std::cout << "인벤토리에 [강화석]이 없습니다!\n";
+							break;
+						}
 						player->UseGold(cost);
 
 						if ( GameManager::IsEnchantSuccess(currentLv) == true )
@@ -137,34 +138,32 @@ void GameManager::Main()
 							weaponStats.atk += 10;
 
 							currentWeapon->SetStats(weaponStats);
+							break;
 						}
 						else
 						{
 							std::cout << "강화 실패!\n";
+							break;
 						}
 
-						
-						
+
+
 					}
 					else
 					{
 						std::cout << "골드가 부족합니다! (필요한 골드 : " << cost << "G)\n";
 						break;
 					}
-					
+				}
 				case 2:
-					
-					Armor * currentArmor = player->GetEquippedArmor();
+				{
+					Armor* currentArmor = player->GetEquippedArmor( );
 					if ( currentArmor == nullptr )
 					{
 						std::cout << "현재 장착 중인 갑옷이 없습니다! 먼저 갑옷을 장착하세요.\n";
 						break;
 					}
-					if ( player->UseEnhancementStone( ) == false ) 
-					{
-						std::cout << "인벤토리에 [강화석]이 없습니다!\n";
-						break;
-					}
+					
 					int currentGold = player->GetGold( );
 					Stats armorStats = currentArmor->GetStats( );
 					int currentLv = armorStats.lv;
@@ -172,6 +171,11 @@ void GameManager::Main()
 
 					if ( currentGold >= cost )
 					{
+						if ( player->UseEnhancementStone( ) == false )
+						{
+							std::cout << "인벤토리에 [강화석]이 없습니다!\n";
+							break;
+						}
 						player->UseGold(cost);
 
 						if ( GameManager::IsEnchantSuccess(currentArmor->GetStats( ).lv) == true )
@@ -181,25 +185,30 @@ void GameManager::Main()
 							armorStats.health += 10;
 
 							currentArmor->SetStats(armorStats);
+							break;
 						}
 						else
 						{
 							std::cout << "강화 실패!\n";
+							break;
 						}
 					}
 					else
 					{
-						std::cout << "골드가 부족합니다! (필요한 골드 : "<< cost<<"G)\n";
+						std::cout << "골드가 부족합니다! (필요한 골드 : " << cost << "G)\n";
 						break;
 					}
 					break;
+				}
 				case 3:
+				{
 					int inventoryNum = -1;
 					player->ShowInventory( );
 					std::cout << "장착할 장비의 번호를 알려주세요 :";
 					std::cin >> inventoryNum;
 					player->Equip(inventoryNum);
 					break;
+				}
 				case 0:
 					isExit = true;
 					break;
@@ -212,11 +221,9 @@ void GameManager::Main()
 				}
 			}
 			break;
-		case 0:
-			return;
-			break;
-		default:
-			break;
+		}
+			default:
+				break;
 		}
 	}
 	
