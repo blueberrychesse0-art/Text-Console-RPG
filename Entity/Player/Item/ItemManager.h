@@ -5,7 +5,7 @@ class Item;
 enum class ItemType {
 	HealthPotion,
 	AttackBoost,
-	EnhanceStone,
+	EnhancementStone,
 	Weapon,
 	Armor
 };

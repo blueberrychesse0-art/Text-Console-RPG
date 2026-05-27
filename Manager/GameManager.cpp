@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include "../Entity/Player/Item/Shop.h"
 
 GameManager::~GameManager()
 {
@@ -63,6 +64,7 @@ void GameManager::Main()
 	{
 		std::cout << "\n========= Text-Console RPG =========" << std::endl;
 		std::cout << "1. 던전 입장" << std::endl;
+		std::cout << "2. 상점 방문" << std::endl;
 		std::cout << "3. 대장간 방문" << std::endl;
 		std::cout << "0. 게임 종료" << std::endl;
 
@@ -88,8 +90,13 @@ void GameManager::Main()
 			}
 			Battle(BattleMode::Manual);
 			break;
-		case 2:
+		case 2: 
+		{
+			Shop shop;
+			shop.OpenShop(player);
+
 			break;
+		}
 		case 3:
 		{
 			int smithySelect = -1;
@@ -131,7 +138,7 @@ void GameManager::Main()
 						}
 						player->UseGold(cost);
 
-						if ( GameManager::IsEnchantSuccess(currentLv) == true )
+						if ( IsEnchantSuccess(currentLv) == true )
 						{
 							std::cout << "강화 성공!\n";
 							weaponStats.lv = currentLv + 1;
@@ -178,7 +185,7 @@ void GameManager::Main()
 						}
 						player->UseGold(cost);
 
-						if ( GameManager::IsEnchantSuccess(currentArmor->GetStats( ).lv) == true )
+						if ( IsEnchantSuccess(currentArmor->GetStats( ).lv) == true )
 						{
 							std::cout << "강화 성공!\n";
 							armorStats.lv = currentLv + 1;

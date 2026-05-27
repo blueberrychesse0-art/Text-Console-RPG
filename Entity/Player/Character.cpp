@@ -1,6 +1,6 @@
 #pragma once
 #include "Character.h"
-#include "Item/Item.h"	//아이템 헤더 추가
+#include "Item/Item.h"
 #include "Item/EquipMent/EquipMent.h"
 #include "Item/EquipMent/Armor.h"
 #include "Item/EquipMent/Weapon.h"
@@ -86,7 +86,7 @@ int Character::GetExperience()const
 
 void Character::Equip(int inventoryIndex)
 {
-	if ( inventoryIndex < 0 || inventoryIndex >= inventory.size( ) )return;	// 인벤토리에 없는 아이템을 가져오려 한다면
+	if ( inventoryIndex < 0 || inventoryIndex >= static_cast<int>(inventory.size()) )return;	// 인벤토리에 없는 아이템을 가져오려 한다면
 
 	Item* item = inventory[inventoryIndex];
 	EquipMent* equip = dynamic_cast<EquipMent*>(item);
@@ -185,14 +185,14 @@ void Character::ShowInventory( ) const {
 		std::cout << "(비어 있음)" << std::endl;
 		return;
 	}
-	for ( int i = 0; i < inventory.size( ); ++i ) {
+	for ( size_t i = 0; i < inventory.size( ); ++i ) {
 		std::cout << i + 1 << ". " << inventory[i]->GetName( ) << " (" << inventory[i]->GetCount( ) << "개) "
 			<< "(" << inventory[i]->GetSellPrice( ) << " G" << std::endl;
 	}
 }
 
 void Character::SellItem(int index) {
-	if ( index < 0 || index >= inventory.size( ) ) {
+	if ( index < 0 || index >= static_cast<int>(inventory.size() )) {
 		std::cout << "잘못된 번호를 입력했습니다." << std::endl;
 		return;
 	}
@@ -205,17 +205,17 @@ void Character::SellItem(int index) {
 }
 
 void Character::RemoveItem(int index) {
-	if ( index < 0 || index >= inventory.size( ) ) return;
+	if ( index < 0 || index >= static_cast<int>(inventory.size( ) )) return;
 	delete inventory[index];
 	inventory.erase(inventory.begin( ) + index);
 }
 
 int Character::GetInventorySize( ) const {
-	return inventory.size( );
+	return static_cast<int>(inventory.size( ));
 }
 
 Item* Character::GetItem(int index) const {
-	if ( index < 0 || index >= inventory.size( ) ) return nullptr;
+	if ( index < 0 || index >= static_cast<int>(inventory.size( ) )) return nullptr;
 	return inventory[index];
 }
 
@@ -224,11 +224,11 @@ bool Character::UseItemInBattle( ) {
 	std::cout << "==== [ 사용 가능한 아이템 ] ====" << std::endl;
 
 	int displayIndex = 1;
-	for ( int i = 0; i < inventory.size( ); ++i ) {
+	for ( size_t i = 0; i < inventory.size( ); ++i ) {
 		if ( inventory[i]->isUsableInBattle( ) ) {
 			cout << displayIndex << ". " << inventory[i]->GetName( ) << " (" << inventory[i]->GetCount( ) << "개)" << std::endl;
 		
-			usableItems.push_back(i);
+			usableItems.push_back(static_cast<int>(i));
 			displayIndex++;
 		}
 	}
@@ -268,9 +268,11 @@ bool Character::UseEnhancementStone( )
 		
 		if ( ( *it )->GetName( ) == "강화석" ) {
 			
-			delete* it;
-			inventory.erase(it);
-			return true; 
+			if ( ( *it )->GetCount( ) <= 0 ) {
+				delete* it;
+				inventory.erase(it);
+			}
+			return true;
 		}
 	}
 	return false; 
