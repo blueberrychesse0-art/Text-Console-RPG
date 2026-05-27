@@ -1,4 +1,6 @@
 #include "GameManager.h"
+#include "../Entity/Player/Item/ItemManager.h"
+#include "../Entity/Player/Item/Shop.h"
 
 GameManager::~GameManager()
 {
@@ -48,6 +50,24 @@ void GameManager::CreatePlayer()
 	std::cin >> name;
 
 	player = new Character(name);
+
+	//나중에 삭제하시면 됩니다(치트).
+	if ( name == "돈내놔" ) {
+		std::cout << "100000G, 갑옷 한개, 무기 한개" << std::endl;
+
+		player->AddGold(1000000);
+		
+		Item* addStones = ItemManager::getInstance( )->CreateItem(ItemType::EnhancementStone , 1000);
+		if ( addStones != nullptr ) { player->AddItem(addStones); }
+
+		Item* addArmor = ItemManager::getInstance( )->CreateItem(ItemType::Armor , 1);
+		if ( addArmor != nullptr ) { player->AddItem(addArmor); }
+
+		Item* addWeapon = ItemManager::getInstance( )->CreateItem(ItemType::Weapon , 1);
+		if ( addWeapon != nullptr ) { player->AddItem(addWeapon); }
+	}
+	//여기까지가 치트
+
 	Battle(BattleMode::Auto);
 }
 
@@ -63,6 +83,7 @@ void GameManager::Main()
 	{
 		std::cout << "\n========= Text-Console RPG =========" << std::endl;
 		std::cout << "1. 던전 입장" << std::endl;
+		std::cout << "2. 상점 방문" << std::endl;
 		std::cout << "3. 대장간 방문" << std::endl;
 		std::cout << "0. 게임 종료" << std::endl;
 
@@ -88,8 +109,13 @@ void GameManager::Main()
 			}
 			Battle(BattleMode::Manual);
 			break;
-		case 2:
+		case 2: 
+		{
+			Shop shop;
+			shop.OpenShop(player);
+
 			break;
+		}
 		case 3:
 		{
 			int smithySelect = -1;
@@ -131,7 +157,7 @@ void GameManager::Main()
 						}
 						player->UseGold(cost);
 
-						if ( GameManager::IsEnchantSuccess(currentLv) == true )
+						if ( IsEnchantSuccess(currentLv) == true )
 						{
 							std::cout << "강화 성공!\n";
 							weaponStats.lv = currentLv + 1;
@@ -178,7 +204,7 @@ void GameManager::Main()
 						}
 						player->UseGold(cost);
 
-						if ( GameManager::IsEnchantSuccess(currentArmor->GetStats( ).lv) == true )
+						if ( IsEnchantSuccess(currentArmor->GetStats( ).lv) == true )
 						{
 							std::cout << "강화 성공!\n";
 							armorStats.lv = currentLv + 1;
@@ -251,17 +277,24 @@ void GameManager::Battle(BattleMode mode)
 				std::cout << "\n전투 승리! " << std::endl;
 
 				std::uniform_int_distribution<int> dist(10 , 21);		// 10 <= x < 21 
-
 				int money = dist(engine);
-				player->AddGold(money);			// 골드 추가
+				player->AddGold(money);
 				std::cout << "골드 " << money << " 획득!" << std::endl;
 
-				player->AddExperience(50);		// 경험치 추가
+				
+				player->AddExperience(50);
 
-				std::uniform_int_distribution<int> percent(0 , 10);
-				if ( percent(engine) < 3 )				// 아이템 추가
-				{
-					//TODO: 플레이어 아이템추가 함수
+				std::vector<DropInfo> dropTable = monsters[0]->GetDropTable( );
+				std::uniform_real_distribution<float> dropDistribution(0.0f , 1.0f);
+
+				for ( const auto& drop : dropTable ) {
+					if ( dropDistribution(engine) <= drop.chance ) {
+						Item* dropItem = ItemManager::getInstance( )->CreateItem(drop.type , 1);
+
+						if ( dropItem != nullptr ) {
+							player->AddItem(dropItem);
+						}
+					}
 				}
 
 				for ( Monster* m : monsters )
@@ -325,10 +358,17 @@ void GameManager::Battle(BattleMode mode)
 
 					player->AddExperience(50);		// 경험치 추가
 
-					std::uniform_int_distribution<int> percent(0 , 10);
-					if ( percent(engine) < 3 )				// 아이템 추가
-					{
-						//TODO: 플레이어 아이템추가 함수
+					std::vector<DropInfo> dropTable = monsters[0]->GetDropTable( );
+					std::uniform_real_distribution<float> dropDistribution(0.0f , 1.0f);
+
+					for ( const auto& drop : dropTable ) {
+						if ( dropDistribution(engine) <= drop.chance ) {
+							Item* dropItem = ItemManager::getInstance( )->CreateItem(drop.type , 1);
+
+							if ( dropItem != nullptr ) {
+								player->AddItem(dropItem);
+							}
+						}
 					}
 
 					for ( Monster* m : monsters )
@@ -364,8 +404,7 @@ void GameManager::Battle(BattleMode mode)
 
 
 			case 2: // 아이템 사용
-				player->ShowInventory( );//아이템 인벤토리 보여주기
-
+				player->UseItemInBattle();
 
 				break;
 			case 3: // 도망 (메인메뉴로)
@@ -414,10 +453,17 @@ void GameManager::Battle()
 			
 			player->AddExperience(50);		// 경험치 추가
 
-			std::uniform_int_distribution<int> percent(0 , 10);
-			if (percent(engine) < 3)				// 아이템 추가
-			{
-				//TODO: 플레이어 아이템추가 함수
+			std::vector<DropInfo> dropTable = monsters[0]->GetDropTable( );
+			std::uniform_real_distribution<float> dropDistribution(0.0f , 1.0f);
+
+			for ( const auto& drop : dropTable ) {
+				if ( dropDistribution(engine) <= drop.chance ) {
+					Item* dropItem = ItemManager::getInstance( )->CreateItem(drop.type , 1);
+
+					if ( dropItem != nullptr ) {
+						player->AddItem(dropItem);
+					}
+				}
 			}
 
 			for (Monster* m : monsters)

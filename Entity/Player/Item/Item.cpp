@@ -36,9 +36,6 @@ void AttackBoost::use(Character* character) {
 	std::cout << "공격력 증가 (현재 : " << character->GetAttack() << ")" << std::endl;
 }
 
-void EnhanceStone::use(Character* character) {
-	if ( count <= 0 ) return;
-	count--;
-
-	std::cout << "무기 장착 시스템, 강화 시스템 추가 예정" << std::endl;
+void EnhancementStone::use(Character* character) {
+	std::cout << "강화석은 대장간에서 사용 가능합니다." << std::endl;
 }
