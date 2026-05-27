@@ -1,14 +1,7 @@
 #pragma once
+#include "../../../FrameWork.h"
 
 class Item;
-
-enum class ItemType {
-	HealthPotion,
-	AttackBoost,
-	EnhancementStone,
-	Weapon,
-	Armor
-};
 
 class ItemManager {
 private:

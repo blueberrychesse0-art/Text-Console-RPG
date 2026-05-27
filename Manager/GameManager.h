@@ -39,6 +39,6 @@ public:
 	bool IsEnchantSuccess(int currentLv);
 	void EncounterBoss();
 	Monster* SpawnRandomMonsters(float multiply);
-
+	
 };
 

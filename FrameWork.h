@@ -10,10 +10,23 @@
 #include <cstdlib>
 #include <ctime>
 
-
 struct Stats
 {
 	int health;
 	int atk;
 	int lv;
+};
+
+enum class ItemType {
+	HealthPotion ,
+	AttackBoost ,
+	EnhancementStone ,
+	Weapon ,
+	Armor
+};
+
+struct DropInfo
+{
+	ItemType type;
+	float chance;
 };
