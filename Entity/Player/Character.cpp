@@ -55,7 +55,7 @@ void Character::AddExperience(int amount)
 
 	while (experience >= 100 && level<10)
 	{
-		cout << "* 레벨업 조건 충족!" << endl;
+		cout << "\n* 레벨업 조건 충족!" << endl;
 		cout << "Lv." << level << "-> Lv.";
 		level++;
 		cout << level;

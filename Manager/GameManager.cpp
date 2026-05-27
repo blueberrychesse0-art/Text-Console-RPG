@@ -346,10 +346,13 @@ void GameManager::Battle(BattleMode mode)
 	{
 		while ( player->GetHealth( ) > 0 && !monsters.empty( ) )
 		{
+			std::cout << "============[ 행동 선택 ]============\n";
 			std::cout << "1. 공격하기" << std::endl;
 			std::cout << "2. 아이템 사용" << std::endl;
 			std::cout << "3. 도망가기" << std::endl;
+			std::cout << "선택: ";
 			std::cin >> select;
+			std::cout << std::endl;
 
 			switch ( select )
 			{
@@ -363,7 +366,7 @@ void GameManager::Battle(BattleMode mode)
 
 				if ( monsters[0]->GetHealth( ) <= 0 )			// 몬스터가 죽었을 시
 				{
-					std::cout << "\n전투 승리! " << std::endl;
+					std::cout << "\n*+* 전투승리! *+*" << std::endl;
 
 					std::uniform_int_distribution<int> dist(10 , 21);		// 10 <= x < 21 
 
