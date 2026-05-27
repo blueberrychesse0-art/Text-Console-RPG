@@ -138,7 +138,7 @@ void GameManager::Main()
 						}
 						player->UseGold(cost);
 
-						if ( GameManager::IsEnchantSuccess(currentLv) == true )
+						if ( IsEnchantSuccess(currentLv) == true )
 						{
 							std::cout << "강화 성공!\n";
 							weaponStats.lv = currentLv + 1;
@@ -185,7 +185,7 @@ void GameManager::Main()
 						}
 						player->UseGold(cost);
 
-						if ( GameManager::IsEnchantSuccess(currentArmor->GetStats( ).lv) == true )
+						if ( IsEnchantSuccess(currentArmor->GetStats( ).lv) == true )
 						{
 							std::cout << "강화 성공!\n";
 							armorStats.lv = currentLv + 1;

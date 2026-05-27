@@ -59,7 +59,7 @@ void Shop::BuyItem(Character* player , int choice) {
 			}
 			else if ( randNum <= 40 ) {
 				std::cout << "강화석 당첨!" << std::endl;
-				player->AddItem(ItemManager::getInstance()->CreateItem(ItemType::EnhanceStone, 1));
+				player->AddItem(ItemManager::getInstance()->CreateItem(ItemType::EnhancementStone, 1));
 			}
 			else if ( randNum <= 60 ) {
 				std::cout << "5G 당첨!" << std::endl;

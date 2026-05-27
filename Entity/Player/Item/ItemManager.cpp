@@ -2,7 +2,6 @@
 #include "Item.h"
 #include "Equipment/Weapon.h"
 #include "EquipMent/Armor.h"
-#include "EquipMent/Equipment.h"
 
 ItemManager* ItemManager::instance = nullptr;
 
@@ -14,6 +13,11 @@ ItemManager* ItemManager::getInstance( ) {
 }
 
 Item* ItemManager::CreateItem(ItemType type , int count) {
+
+	//Stats {health, atk, lv}
+	Stats baseWeaponStats = { 0, 20, 1 };
+	Stats baseArmorStats = { 50, 0, 1 };
+
 	switch ( type ) {
 
 	case ItemType::HealthPotion:
@@ -26,10 +30,10 @@ Item* ItemManager::CreateItem(ItemType type , int count) {
 		return new EnhancementStone("강화석" , count, 20);
 
 	case ItemType::Weapon:
-		return new BaseSword("기본 검" , 20, count, 100);
+		return new Weapon("검" , baseWeaponStats, 100, count);
 
 	case ItemType::Armor:
-		return new BaseArmor("기본 갑옷" , 50, count, 100);
+		return new Armor("갑옷" , baseArmorStats, 100, count);
 
 	default:
 		return nullptr;
