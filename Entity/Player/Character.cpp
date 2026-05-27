@@ -1,15 +1,9 @@
 #pragma once
 #include "Character.h"
-#include "Item/Item.h"	//아이템 헤더 추가
-<<<<<<< Updated upstream
+#include "Item/Item.h"
 #include "Item/EquipMent/EquipMent.h"
 #include "Item/EquipMent/Armor.h"
 #include "Item/EquipMent/Weapon.h"
-=======
-#include "Item/EquipMent/Weapon.h"
-#include "Item/EquipMent/Armor.h"
-#include "Item/EquipMent/EquipMent.h"
->>>>>>> Stashed changes
 #include "../../FrameWork.h"
 
 using namespace std;
