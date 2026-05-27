@@ -91,7 +91,8 @@ void GameManager::Main()
 		std::cout << "1. 던전 입장" << std::endl;
 		std::cout << "2. 상점 방문" << std::endl;
 		std::cout << "3. 대장간 방문" << std::endl;
-		std::cout << "4. 인벤토리 확인" << std::endl;
+		std::cout << "4. 플레이어 상태 확인" << std::endl;
+		std::cout << "5. 인벤토리 확인" << std::endl;
 		std::cout << "0. 게임 종료" << std::endl;
 
 
@@ -264,7 +265,10 @@ void GameManager::Main()
 			break;
 		}
 		case 4:
-			player->DisplayStatus( );
+			player->DisplayStatus();
+			break;
+		case 5:
+			player->ShowInventory();
 			break;
 		case 0:
 			std::cout << "게임을 종료합니다." << std::endl;
