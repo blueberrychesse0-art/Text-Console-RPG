@@ -381,7 +381,8 @@ void GameManager::Battle(BattleMode mode)
 				// 몬스터의 공격
 				preHealth = player->GetHealth( );
 				monsters[0]->Attack( );
-				player->TakeDamage(monsters[0]->GetAttack( ));
+				player->TakeDamage(monsters[0]->GetAttack());
+				std::cout << player->GetName( ) << " 가 공격을 받았습니다. 현재 체력 : " << player->GetHealth() << std::endl;
 
 				if ( player->GetHealth( ) <= 0 )			// 플레이어가가 죽었을 시
 				{
