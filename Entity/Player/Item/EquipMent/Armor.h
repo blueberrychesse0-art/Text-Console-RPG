@@ -4,6 +4,8 @@
 class Armor : public EquipMent
 {
 public:
-	Armor(std::string name , Stats stats , int price = 10 , int count = 1) : EquipMent(name , stats , price) {}
+	Armor(std::string name , Stats stats , int price = 10 , int count = 1) : EquipMent(name , stats , price, count) {}
+
+	void use(Character* character) override {}
 };
 
