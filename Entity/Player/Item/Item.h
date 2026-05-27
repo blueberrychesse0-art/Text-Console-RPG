@@ -19,7 +19,17 @@ public:
 	virtual ~Item() {}
 
 	virtual void use(Character* character) = 0;
+	
 	int GetCount() const { return count; }
+	
+	void SetCount(int Count) {
+		if ( Count < 0 ) {
+			count = 0;
+		}
+		else {
+			count = Count;
+		}
+	}
 
 	void AddCount(int amount) { count += amount; }
 	
