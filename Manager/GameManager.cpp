@@ -240,18 +240,17 @@ void GameManager::Battle(BattleMode mode)
 {
 	int select = 0;
 
+	// 몬스터가 없으면 실행하지 않음
+	if ( monsters.empty( ) || monsters[0] == nullptr || player == nullptr )
+		return;
+
 	if ( mode == BattleMode::Auto )      //자동 전투
 	{
-
 		while ( player->GetHealth( ) > 0 && !monsters.empty( ) )
 		{
-			int preHealth = monsters[0]->GetHealth( );		// 공격 받기 전 체력
-
 			// 플레이어의 공격
 			player->Attack( );
 			monsters[0]->TakeDamage(player->GetAttack( ));
-			//std::cout << monsters[0]->GetName( ) << "에게 " << player->GetAttack( ) << " 데미지!" << std::endl;
-			//std::cout << monsters[0]->GetName( ) << "체력 " << preHealth << " -> " << monsters[0]->GetHealth() << std::endl;
 
 			if ( monsters[0]->GetHealth( ) <= 0 )			// 몬스터가 죽었을 시
 			{
@@ -281,11 +280,8 @@ void GameManager::Battle(BattleMode mode)
 
 			std::cout << std::endl;
 			// 몬스터의 공격
-			preHealth = player->GetHealth( );
 			monsters[0]->Attack( );
 			player->TakeDamage(monsters[0]->GetAttack( ));
-			//std::cout << player->GetName( ) << "에게 " << monsters[0]->GetAttack() << " 데미지!" << std::endl;
-			//std::cout << player->GetName( ) << "체력 " << preHealth << " -> " << player->GetHealth( ) << std::endl;
 
 			if ( player->GetHealth( ) <= 0 )			// 플레이어가 죽었을 시
 			{
@@ -317,8 +313,6 @@ void GameManager::Battle(BattleMode mode)
 				// 플레이어의 공격
 				player->Attack( );
 				monsters[0]->TakeDamage(player->GetAttack( ));
-				//std::cout << monsters[0]->GetName( ) << "에게 " << player->GetAttack( ) << " 데미지!" << std::endl;
-				//std::cout << monsters[0]->GetName( ) << "체력 " << preHealth << " -> " << monsters[0]->GetHealth() << std::endl;
 
 				if ( monsters[0]->GetHealth( ) <= 0 )			// 몬스터가 죽었을 시
 				{
@@ -351,8 +345,6 @@ void GameManager::Battle(BattleMode mode)
 				preHealth = player->GetHealth( );
 				monsters[0]->Attack( );
 				player->TakeDamage(monsters[0]->GetAttack( ));
-				//std::cout << player->GetName( ) << "에게 " << monsters[0]->GetAttack() << " 데미지!" << std::endl;
-				//std::cout << player->GetName( ) << "체력 " << preHealth << " -> " << player->GetHealth( ) << std::endl;
 
 				if ( player->GetHealth( ) <= 0 )			// 플레이어가가 죽었을 시
 				{
@@ -364,12 +356,8 @@ void GameManager::Battle(BattleMode mode)
 					monsters.clear( );
 					return;
 				}
-
-
 				break;
 			}
-
-
 			case 2: // 아이템 사용
 				player->ShowInventory( );//아이템 인벤토리 보여주기
 
@@ -389,12 +377,7 @@ void GameManager::Battle(BattleMode mode)
 				break;
 			}
 		}
-
 	}
-
-
-
-
 }
 
 void GameManager::Battle()
@@ -455,7 +438,6 @@ void GameManager::EncounterBoss()
 	{
 		std::uniform_real_distribution<float> dist(1.0f , 1.5f);
 		float multiply = dist(engine);
-
 
 		monsters.push_back(SpawnRandomMonsters(multiply));
 		std::cout << "\n[BOSS] 강력한 " << monsters[0]->GetName( ) << " 이 나타났다! " << std::endl;
