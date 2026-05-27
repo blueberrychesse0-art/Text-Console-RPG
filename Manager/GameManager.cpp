@@ -352,10 +352,17 @@ void GameManager::Battle(BattleMode mode)
 
 					player->AddExperience(50);		// 경험치 추가
 
-					std::uniform_int_distribution<int> percent(0 , 10);
-					if ( percent(engine) < 3 )				// 아이템 추가
-					{
-						//TODO: 플레이어 아이템추가 함수
+					std::vector<DropInfo> dropTable = monsters[0]->GetDropTable( );
+					std::uniform_real_distribution<float> dropDistribution(0.0f , 1.0f);
+
+					for ( const auto& drop : dropTable ) {
+						if ( dropDistribution(engine) <= drop.chance ) {
+							Item* dropItem = ItemManager::getInstance( )->CreateItem(drop.type , 1);
+
+							if ( dropItem != nullptr ) {
+								player->AddItem(dropItem);
+							}
+						}
 					}
 
 					for ( Monster* m : monsters )
