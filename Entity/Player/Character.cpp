@@ -1,9 +1,15 @@
 #pragma once
 #include "Character.h"
 #include "Item/Item.h"	//아이템 헤더 추가
+<<<<<<< Updated upstream
 #include "Item/EquipMent/EquipMent.h"
 #include "Item/EquipMent/Armor.h"
 #include "Item/EquipMent/Weapon.h"
+=======
+#include "Item/EquipMent/Weapon.h"
+#include "Item/EquipMent/Armor.h"
+#include "Item/EquipMent/EquipMent.h"
+>>>>>>> Stashed changes
 #include "../../FrameWork.h"
 
 using namespace std;
@@ -185,7 +191,7 @@ void Character::ShowInventory( ) const {
 		std::cout << "(비어 있음)" << std::endl;
 		return;
 	}
-	for ( int i = 0; i < inventory.size( ); ++i ) {
+	for ( size_t i = 0; i < inventory.size( ); ++i ) {
 		std::cout << i + 1 << ". " << inventory[i]->GetName( ) << " (" << inventory[i]->GetCount( ) << "개) "
 			<< "(" << inventory[i]->GetSellPrice( ) << " G" << std::endl;
 	}
@@ -224,7 +230,7 @@ bool Character::UseItemInBattle( ) {
 	std::cout << "==== [ 사용 가능한 아이템 ] ====" << std::endl;
 
 	int displayIndex = 1;
-	for ( int i = 0; i < inventory.size( ); ++i ) {
+	for ( size_t i = 0; i < inventory.size( ); ++i ) {
 		if ( inventory[i]->isUsableInBattle( ) ) {
 			cout << displayIndex << ". " << inventory[i]->GetName( ) << " (" << inventory[i]->GetCount( ) << "개)" << std::endl;
 		

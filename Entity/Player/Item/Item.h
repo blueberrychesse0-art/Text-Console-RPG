@@ -64,9 +64,9 @@ public:
 };
 
 //강화석
-class EnhanceStone : public Item {
+class EnhancementStone : public Item {
 public:
-	EnhanceStone(std::string name , int count, int price)
+	EnhancementStone(std::string name , int count, int price)
 		: Item(name , count, price) {
 	}
 	void use(Character* character) override;

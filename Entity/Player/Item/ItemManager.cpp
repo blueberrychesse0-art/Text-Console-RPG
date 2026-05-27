@@ -22,8 +22,8 @@ Item* ItemManager::CreateItem(ItemType type , int count) {
 	case ItemType::AttackBoost:
 		return new AttackBoost("공격력 포션" , 10 , count, 50);
 
-	case ItemType::EnhanceStone:
-		return new EnhanceStone("강화석" , count, 20);
+	case ItemType::EnhancementStone:
+		return new EnhancementStone("강화석" , count, 20);
 
 	case ItemType::Weapon:
 		return new BaseSword("기본 검" , 20, count, 100);

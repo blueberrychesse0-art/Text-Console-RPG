@@ -36,7 +36,7 @@ void AttackBoost::use(Character* character) {
 	std::cout << "공격력 증가 (현재 : " << character->GetAttack() << ")" << std::endl;
 }
 
-void EnhanceStone::use(Character* character) {
+void EnhancementStone::use(Character* character) {
 	if ( count <= 0 ) return;
 	count--;
 
