@@ -74,20 +74,26 @@ void GameManager::CreatePlayer()
 void GameManager::Main()
 {
 	// CreatePlayer가 제대로 실행되지않아 player가 없으면 실행하지않음
-	if (player == nullptr)
+	if ( player == nullptr )
+	{
+		std::cout << "캐릭터 없음";
 		return;
-
+	}
+	std::cout << "\n========= Text-Console RPG =========" << std::endl;
+	player->DisplayStatus( );
 	int select = -1;
 
 	while (1)
 	{
-		std::cout << "\n========= Text-Console RPG =========" << std::endl;
+		std::cout << "\n=======================================\n";
+		std::cout << "[메인 로비]\n";
+		std::cout << "=======================================\n";
 		std::cout << "1. 던전 입장" << std::endl;
 		std::cout << "2. 상점 방문" << std::endl;
 		std::cout << "3. 대장간 방문" << std::endl;
+		std::cout << "4. 현재 정보" << std::endl;
 		std::cout << "0. 게임 종료" << std::endl;
 
-		player->DisplayStatus();
 
 		std::cout << "\n선택 : ";
 		std::cin >> select;
@@ -120,15 +126,15 @@ void GameManager::Main()
 		{
 			int smithySelect = -1;
 			bool isExit = false;
-			std::cout << "=======================================\n";
-			std::cout << "[FORGE] 대장간 : 장비를 강화할 수 있습니다.\n";
-			std::cout << "=======================================\n";
+			
 			while ( 1 )
 			{
-
+				std::cout << "\n=======================================\n";
+				std::cout << "[FORGE] 대장간 : 장비를 강화할 수 있습니다.\n";
+				std::cout << "=======================================\n";
 				std::cout << "1. 무기 강화 (공격력 상승)\n";
 				std::cout << "2. 방어구 강화 (최대 체력 상승)\n";
-				std::cout << "3. 장비 장착하기\n";
+				std::cout << "3. 인벤토리 확인\n";
 				std::cout << "0. 대장간 나가기\n";
 				std::cout << "선택 : ";
 				std::cin >> smithySelect;
@@ -155,11 +161,15 @@ void GameManager::Main()
 							std::cout << "인벤토리에 [강화석]이 없습니다!\n";
 							break;
 						}
+
+						std::cout << "골드 " << cost << "만큼 소모 | 남은 골드 : ";
 						player->UseGold(cost);
+						std::cout << player->GetGold( ) << "G\n";
 
 						if ( IsEnchantSuccess(currentLv) == true )
 						{
-							std::cout << "강화 성공!\n";
+							std::cout << "무기 강화 성공!\n";
+							std::cout << "강화단계 상승! " << currentLv << " -> " << currentLv + 1 << std::endl;
 							weaponStats.lv = currentLv + 1;
 							weaponStats.atk += 10;
 
@@ -168,7 +178,7 @@ void GameManager::Main()
 						}
 						else
 						{
-							std::cout << "강화 실패!\n";
+							std::cout << "무기 강화 실패!\n";
 							break;
 						}
 
@@ -202,11 +212,13 @@ void GameManager::Main()
 							std::cout << "인벤토리에 [강화석]이 없습니다!\n";
 							break;
 						}
+						std::cout << "골드 " << cost << "만큼 소모 | 남은 골드 : ";
 						player->UseGold(cost);
-
+						std::cout << player->GetGold( ) << "G\n";
 						if ( IsEnchantSuccess(currentArmor->GetStats( ).lv) == true )
 						{
-							std::cout << "강화 성공!\n";
+							std::cout << "갑옷 강화 성공!\n";
+							std::cout << "강화단계 상승! " << currentLv << " -> " << currentLv + 1 << std::endl;
 							armorStats.lv = currentLv + 1;
 							armorStats.health += 10;
 
@@ -215,7 +227,7 @@ void GameManager::Main()
 						}
 						else
 						{
-							std::cout << "강화 실패!\n";
+							std::cout << "갑옷 강화 실패!\n";
 							break;
 						}
 					}
@@ -230,17 +242,20 @@ void GameManager::Main()
 				{
 					int inventoryNum = -1;
 					player->ShowInventory( );
+					std::cout << "0. 나가기\n";
 					std::cout << "장착할 장비의 번호를 알려주세요 :";
 					std::cin >> inventoryNum;
 					player->Equip(inventoryNum);
 					break;
 				}
+				
 				case 0:
 					isExit = true;
 					break;
 				default:
 					break;
 				}
+
 				if ( isExit )
 				{
 					break;
@@ -248,6 +263,12 @@ void GameManager::Main()
 			}
 			break;
 		}
+		case 4:
+			player->DisplayStatus( );
+			break;
+		case 0:
+			std::cout << "게임을 종료합니다." << std::endl;
+			return;
 			default:
 				break;
 		}

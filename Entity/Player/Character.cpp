@@ -27,8 +27,19 @@ void Character::DisplayStatus() const
 	cout << "\n====================================" << endl;
 	cout << name << "의 현재 상태" << endl;
 	cout << "====================================" << endl;
-	cout << "체력 : " << health << "/" << Character::GetMaxHealth( ) << " | 공격력 : " << Character::GetAttack() << endl
-		<< "현재 레벨 : " << level << " | 경험치 : " << experience << "/100" << endl;
+	
+	if ( GetEquippedWeapon( ) != nullptr || GetEquippedArmor( ) != nullptr )
+	{
+		cout << "체력 : " << health << "/" << Character::GetMaxHealth( ) << "(+" << equippedArmor->GetStats( ).health << ")"
+			<< " | 공격력 : " << Character::GetAttack( ) << "(+" << equippedWeapon->GetStats( ).atk << ")" << endl
+			<< "현재 레벨 : " << level << " | 경험치 : " << experience << "/100" << endl;
+		cout << "무기 : " << equippedWeapon->GetName( ) << "+" << equippedWeapon->GetStats( ).lv << " | 방어구 : " << equippedArmor->GetName( ) << "+" << equippedArmor->GetStats( ).lv << endl;
+	}
+	else
+	{
+		cout << "체력 : " << health << "/" << Character::GetMaxHealth( ) << " | 공격력 : " << Character::GetAttack( ) << endl
+			<< "현재 레벨 : " << level << " | 경험치 : " << experience << "/100" << endl;
+	}
 }
 void Character::AddExperience(int amount)
 {
@@ -86,9 +97,12 @@ int Character::GetExperience()const
 
 void Character::Equip(int inventoryIndex)
 {
-	if ( inventoryIndex < 0 || inventoryIndex >= static_cast<int>(inventory.size()) )return;	// 인벤토리에 없는 아이템을 가져오려 한다면
-
-	Item* item = inventory[inventoryIndex];
+	if ( inventoryIndex < 1 || inventoryIndex > static_cast< int >(inventory.size( )) )
+	{
+		cout << "올바른 숫자를 입력해주세요\n";
+		return;	// 인벤토리에 없는 아이템을 가져오려 한다면
+	}
+	Item* item = inventory[inventoryIndex-1];
 	EquipMent* equip = dynamic_cast<EquipMent*>(item);
 	if ( equip == nullptr )
 	{
@@ -100,7 +114,7 @@ void Character::Equip(int inventoryIndex)
 	Weapon* weapon = dynamic_cast< Weapon* >(equip);	// 무기인지 판독
 	if ( weapon != nullptr )
 	{
-		inventory.erase(inventory.begin( ) + inventoryIndex); // 인벤토리에서 무기 제거
+		inventory.erase(inventory.begin( ) + inventoryIndex-1); // 인벤토리에서 무기 제거
 		if ( equippedWeapon != nullptr )	// 무기가 장착중이라면
 		{
 			inventory.push_back(equippedWeapon);	// 인벤토리에 넣고
@@ -114,7 +128,7 @@ void Character::Equip(int inventoryIndex)
 	Armor* armor = dynamic_cast< Armor* >( equip );	// 갑옷인지 판독
 	if ( armor != nullptr )
 	{
-		inventory.erase(inventory.begin( ) + inventoryIndex); // 인벤토리에서 갑옷 제거
+		inventory.erase(inventory.begin( ) + inventoryIndex-1); // 인벤토리에서 갑옷 제거
 		if ( equippedArmor != nullptr )	// 갑옷이 장착중이라면
 		{
 			inventory.push_back(equippedArmor);	// 인벤토리에 넣고
@@ -178,9 +192,9 @@ void Character::AddItem(Item* newItem) {
 }
 
 void Character::ShowInventory( ) const {
-	std::cout << "현재 소지 골드 : " << gold << " G" << std::endl;
-	std::cout << "=== [ 인벤토리 ] ===" << std::endl;
 	
+	std::cout << "\n=== [ 인벤토리 ] ===" << std::endl;
+	std::cout << "현재 소지 골드 : " << gold << " G" << std::endl;
 	if ( inventory.empty( ) ) {
 		std::cout << "(비어 있음)" << std::endl;
 		return;
