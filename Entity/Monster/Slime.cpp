@@ -1,4 +1,4 @@
-﻿
+
 
 #include "Slime.h"
 #include <cstdlib>
@@ -11,4 +11,6 @@ Slime::Slime(int playerLevel)
         playerLevel * 5 + rand() % (playerLevel * 5 + 1)
     )
 {
+	dropTable.push_back({ ItemType::HealthPotion, 0.3f });
+	dropTable.push_back({ ItemType::EnhanceStone, 0.5f });
 }
