@@ -19,7 +19,17 @@ public:
 	virtual ~Item() {}
 
 	virtual void use(Character* character) = 0;
+	
 	int GetCount() const { return count; }
+	
+	void SetCount(int Count) {
+		if ( Count < 0 ) {
+			count = 0;
+		}
+		else {
+			count = Count;
+		}
+	}
 
 	void AddCount(int amount) { count += amount; }
 	
@@ -27,7 +37,7 @@ public:
 	std::string GetName() const { return name; }
 
 	//아이템 판매를 위한 가상 함수 추가
-	virtual int GetSellPrice( ) const { return 1; }
+	virtual int GetSellPrice( ) const { return sellPrice; }
 
 	//사용 가능한 아이템만 전투 중 인벤토리에 출력하기 위해 가상함수 추가
 	virtual bool isUsableInBattle( ) const { return false; }
@@ -64,42 +74,10 @@ public:
 };
 
 //강화석
-class EnhanceStone : public Item {
+class EnhancementStone : public Item {
 public:
-	EnhanceStone(std::string name , int count, int price)
+	EnhancementStone(std::string name , int count, int price)
 		: Item(name , count, price) {
 	}
 	void use(Character* character) override;
-};
-
-class BaseSword : public Item {
-private:
-	int attackPower;
-
-public:
-	BaseSword(std::string name , int attackPower , int count , int price)
-		: Item(name , count , price) , attackPower(attackPower) {
-	}
-
-	void use(Character* character) override {
-		std::cout << "검을 장착했습니다." << std::endl;
-	}
-
-	int GetAttackPower( ) const { return attackPower; }
-};
-
-class BaseArmor : public Item {
-private:
-	int armorHealth;
-
-public:
-	BaseArmor(std::string name , int armorHealth , int count , int price)
-		: Item(name , count , price) , armorHealth(armorHealth) {
-	}
-
-	void use(Character* character) override {
-		std::cout << "갑옷을 장착했습니다." << std::endl;
-	}
-
-	int GetArmorHealth( ) const { return armorHealth; }
 };

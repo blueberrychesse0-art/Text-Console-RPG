@@ -59,7 +59,7 @@ void Shop::BuyItem(Character* player , int choice) {
 			}
 			else if ( randNum <= 40 ) {
 				std::cout << "강화석 당첨!" << std::endl;
-				player->AddItem(ItemManager::getInstance()->CreateItem(ItemType::EnhanceStone, 1));
+				player->AddItem(ItemManager::getInstance()->CreateItem(ItemType::EnhancementStone, 1));
 			}
 			else if ( randNum <= 60 ) {
 				std::cout << "5G 당첨!" << std::endl;
@@ -77,8 +77,7 @@ void Shop::BuyItem(Character* player , int choice) {
 		int sellChoice = -1;
 		while ( sellChoice != 0 ) {
 			player->ShowInventory( );
-			std::cout << "판매할 아이템 번호를 입력하세요 :" << std::endl;
-			std::cout << "0. 뒤로가기";
+			std::cout << "판매할 아이템 번호를 입력하세요(0. 뒤로가기) :" << std::endl;
 			std::cin >> sellChoice;
 
 			if ( sellChoice > 0 && sellChoice <= player->GetInventorySize( ) ) {
@@ -112,9 +111,9 @@ void Shop::OpenShop(Character* player) {
 		ShowItems( );
 		std::cout << "번호를 입력하세요: ";
 		std::cin >> choice;
-	}
 
-	if ( choice != 0 ) {
-		BuyItem(player , choice);
+		if ( choice != 0 ) {
+			BuyItem(player , choice);
+		}
 	}
 }
