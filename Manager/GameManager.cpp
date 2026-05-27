@@ -85,6 +85,7 @@ void GameManager::Main()
 		std::cout << "1. 던전 입장" << std::endl;
 		std::cout << "2. 상점 방문" << std::endl;
 		std::cout << "3. 대장간 방문" << std::endl;
+		std::cout << "4. 인벤토리 확인" << std::endl;
 		std::cout << "0. 게임 종료" << std::endl;
 
 		player->DisplayStatus();
@@ -248,6 +249,9 @@ void GameManager::Main()
 			}
 			break;
 		}
+		case 4:
+			player->ShowInventory();
+			break;
 			default:
 				break;
 		}
