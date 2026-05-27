@@ -187,7 +187,7 @@ void Character::ShowInventory( ) const {
 	}
 	for ( size_t i = 0; i < inventory.size( ); ++i ) {
 		std::cout << i + 1 << ". " << inventory[i]->GetName( ) << " (" << inventory[i]->GetCount( ) << "개) "
-			<< "(" << inventory[i]->GetSellPrice( ) << " G" << std::endl;
+			<< "(" << inventory[i]->GetSellPrice( ) << " G)" << std::endl;
 	}
 }
 
