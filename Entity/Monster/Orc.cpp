@@ -12,5 +12,5 @@ Orc::Orc(int playerLevel)
     )
 {
 	dropTable.push_back({ ItemType::Weapon, 0.5f });
-	dropTable.push_back({ ItemType::EnhanceStone, 0.5f });
+	dropTable.push_back({ ItemType::EnhancementStone, 0.5f });
 }

@@ -12,5 +12,5 @@ Slime::Slime(int playerLevel)
     )
 {
 	dropTable.push_back({ ItemType::HealthPotion, 0.3f });
-	dropTable.push_back({ ItemType::EnhanceStone, 0.5f });
+	dropTable.push_back({ ItemType::EnhancementStone, 0.5f });
 }

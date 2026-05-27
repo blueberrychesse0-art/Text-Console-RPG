@@ -20,7 +20,7 @@ struct Stats
 enum class ItemType {
 	HealthPotion ,
 	AttackBoost ,
-	EnhanceStone ,
+	EnhancementStone ,
 	Weapon ,
 	Armor
 };
