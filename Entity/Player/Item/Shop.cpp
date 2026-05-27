@@ -112,9 +112,9 @@ void Shop::OpenShop(Character* player) {
 		ShowItems( );
 		std::cout << "번호를 입력하세요: ";
 		std::cin >> choice;
-	}
 
-	if ( choice != 0 ) {
-		BuyItem(player , choice);
+		if ( choice != 0 ) {
+			BuyItem(player , choice);
+		}
 	}
 }
