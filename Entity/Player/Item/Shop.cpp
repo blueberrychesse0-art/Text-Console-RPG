@@ -77,8 +77,7 @@ void Shop::BuyItem(Character* player , int choice) {
 		int sellChoice = -1;
 		while ( sellChoice != 0 ) {
 			player->ShowInventory( );
-			std::cout << "판매할 아이템 번호를 입력하세요 :" << std::endl;
-			std::cout << "0. 뒤로가기";
+			std::cout << "판매할 아이템 번호를 입력하세요(0. 뒤로가기) :" << std::endl;
 			std::cin >> sellChoice;
 
 			if ( sellChoice > 0 && sellChoice <= player->GetInventorySize( ) ) {

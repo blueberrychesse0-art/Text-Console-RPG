@@ -268,6 +268,8 @@ bool Character::UseEnhancementStone( )
 		
 		if ( ( *it )->GetName( ) == "강화석" ) {
 			
+			( *it )->SetCount(( *it )->GetCount( ) - 1);
+
 			if ( ( *it )->GetCount( ) <= 0 ) {
 				delete* it;
 				inventory.erase(it);
