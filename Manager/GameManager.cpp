@@ -274,6 +274,16 @@ void GameManager::Battle(BattleMode mode)
 
 			if ( monsters[0]->GetHealth( ) <= 0 )			// 몬스터가 죽었을 시
 			{
+				std::cout << "\n전투 승리! " << std::endl;
+
+				std::uniform_int_distribution<int> dist(10 , 21);		// 10 <= x < 21 
+				int money = dist(engine);
+				player->AddGold(money);
+				std::cout << "골드 " << money << " 획득!" << std::endl;
+
+				
+				player->AddExperience(50);
+
 				std::vector<DropInfo> dropTable = monsters[0]->GetDropTable( );
 				std::uniform_real_distribution<float> dropDistribution(0.0f , 1.0f);
 
@@ -436,10 +446,17 @@ void GameManager::Battle()
 			
 			player->AddExperience(50);		// 경험치 추가
 
-			std::uniform_int_distribution<int> percent(0 , 10);
-			if (percent(engine) < 3)				// 아이템 추가
-			{
-				//TODO: 플레이어 아이템추가 함수
+			std::vector<DropInfo> dropTable = monsters[0]->GetDropTable( );
+			std::uniform_real_distribution<float> dropDistribution(0.0f , 1.0f);
+
+			for ( const auto& drop : dropTable ) {
+				if ( dropDistribution(engine) <= drop.chance ) {
+					Item* dropItem = ItemManager::getInstance( )->CreateItem(drop.type , 1);
+
+					if ( dropItem != nullptr ) {
+						player->AddItem(dropItem);
+					}
+				}
 			}
 
 			for (Monster* m : monsters)
