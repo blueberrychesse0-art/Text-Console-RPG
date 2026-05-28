@@ -297,6 +297,7 @@ void GameManager::Main()
 		if ( boss == true && win == true )
 		{
 			std::cout << "보스전에서 승리하셨습니다! 축하드립니다! " << std::endl;
+			return;
 		}
 	}
 	
