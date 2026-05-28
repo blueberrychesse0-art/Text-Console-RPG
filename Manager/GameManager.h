@@ -24,6 +24,8 @@ private:
 	Character* player = nullptr;
 	std::vector<Monster*> monsters;
 	std::mt19937 engine;
+	bool boss = false;
+	bool win = false;
 public:
 	GameManager(const GameManager&) = delete;
 	GameManager& operator=(const GameManager&) = delete;
