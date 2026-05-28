@@ -20,8 +20,8 @@ public:	//퍼블릭 중복 있어서 지웠습니다.
 
 	std::string GetName()const;
 	int GetHealth()const;
-	virtual int GetAttack()const; // 캐릭터 장비 스탯을 위해 가상화
-	virtual int GetMaxHealth()const; // 캐릭터 장비 스탯을 위해 가상화
+	virtual int GetAttack( )const; // 캐릭터 장비 스탯을 위해 가상화virtual
+	virtual int GetMaxHealth( )const; // 캐릭터 장비 스탯을 위해 가virtual상화
 
 	void AddHealth(int amount);
 	void AddAttack(int amount);
