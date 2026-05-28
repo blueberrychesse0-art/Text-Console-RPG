@@ -28,18 +28,25 @@ void Character::DisplayStatus() const
 	cout << name << "의 현재 상태" << endl;
 	cout << "====================================" << endl;
 	
-	if ( GetEquippedWeapon( ) != nullptr || GetEquippedArmor( ) != nullptr )
-	{
-		cout << "체력 : " << health << "/" << Character::GetMaxHealth( ) << "(+" << equippedArmor->GetStats( ).health << ")"
-			<< " | 공격력 : " << Character::GetAttack( ) << "(+" << equippedWeapon->GetStats( ).atk << ")" << endl
-			<< "현재 레벨 : " << level << " | 경험치 : " << experience << "/100" << endl;
-		cout << "무기 : " << equippedWeapon->GetName( ) << "+" << equippedWeapon->GetStats( ).lv << " | 방어구 : " << equippedArmor->GetName( ) << "+" << equippedArmor->GetStats( ).lv << endl;
-	}
-	else
-	{
-		cout << "체력 : " << health << "/" << Character::GetMaxHealth( ) << " | 공격력 : " << Character::GetAttack( ) << endl
-			<< "현재 레벨 : " << level << " | 경험치 : " << experience << "/100" << endl;
-	}
+	
+		cout << "체력 : " << health << "/" << Character::GetMaxHealth( )<<endl;
+		if ( GetEquippedArmor( ) != nullptr )
+		{
+			
+			std::cout << "방어구 : " << equippedArmor->GetName( ) << "+" << equippedArmor->GetStats( ).lv;
+			std::cout << "(최대 체력 +" << equippedArmor->GetStats( ).health << ")\n";
+		}
+		std::cout << "공격력 : " << Character::GetAttack( ) << endl;
+		if ( GetEquippedWeapon( ) != nullptr )
+		{
+			
+			cout << "무기 : " << equippedWeapon->GetName( ) << "+" << equippedWeapon->GetStats( ).lv;
+			std::cout << "(공격력 +" << equippedWeapon->GetStats( ).atk << ")" << endl;
+		} 
+		std::cout << "현재 레벨 : " << level << " | 경험치 : " << experience << "/100" << endl;
+		
+	
+	
 }
 void Character::AddExperience(int amount)
 {
