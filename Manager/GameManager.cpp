@@ -98,13 +98,30 @@ void GameManager::Main()
 
 		std::cout << "\n선택 : ";
 		std::cin >> select;
-
+		
 		switch ( select )
 		{
 		case 1:
 			if ( player->GetLevel() >= 10 )	// 플레이어가 10랩이상이면 보스스폰
 			{
+				std::cout << "============= [BOSS] ==============" << std::endl;
+				std::cout << "이번 전투는 보스전입니다 계속 진행하시겠습니까?" << std::endl;
+				std::cout << "1. 진행한다. 2. 돌아간다. \n선택 : ";
+				int bossSelect = -1;
+				std::cin >> bossSelect;
+				switch ( bossSelect )
+				{
+				case 1:
+					break;
+				case 2:
+					continue;
+					break;
+				default:
+					continue;
+					break;
+				}
 				EncounterBoss();
+				boss = true;
 			}
 			else
 			{
@@ -276,6 +293,12 @@ void GameManager::Main()
 			default:
 				break;
 		}
+
+		if ( boss == true && win == true )
+		{
+			std::cout << "보스전에서 승리하셨습니다! 축하드립니다! " << std::endl;
+			return;
+		}
 	}
 	
 }
@@ -398,6 +421,7 @@ void GameManager::Battle(BattleMode mode)
 						delete m;
 					}
 					monsters.clear( );
+					if ( boss == true ) win = true;
 					return;
 				}
 
@@ -504,7 +528,7 @@ void GameManager::EncounterBoss()
 {
 	if (monsters.empty())
 	{
-		std::uniform_real_distribution<float> dist(1.0f , 1.5f);
+		std::uniform_real_distribution<float> dist(1.5f , 3.0f);
 		float multiply = dist(engine);
 
 		monsters.push_back(SpawnRandomMonsters(multiply));
@@ -515,8 +539,8 @@ void GameManager::EncounterBoss()
 Monster* GameManager::SpawnRandomMonsters(float multiply)
 {
 	// 몬스터 랜덤 선택
-	std::discrete_distribution<int> weightDist({ 40, 30, 20, 10 });		// 꼭 합이 100일 필요는 없음
-	int roll = weightDist(engine);
+	std::discrete_distribution<int> weightDist({ 40 / multiply, 30 / multiply, 20 * multiply, 10 * multiply });		// 꼭 합이 100일 필요는 없음
+	int roll = weightDist(engine);																					// multiply 가높아지면 쌘몬스터가 더 자주나옴
 
 	Monster* newMonster = nullptr;
 	int playerLevel = player->GetLevel();
