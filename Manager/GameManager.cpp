@@ -85,6 +85,8 @@ void GameManager::Main()
 
 	while (1)
 	{
+		if ( player->GetHealth( ) <= 0 )
+			break;
 		std::cout << "\n=======================================\n";
 		std::cout << "[메인 로비]\n";
 		std::cout << "=======================================\n";
